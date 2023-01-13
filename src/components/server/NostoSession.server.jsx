@@ -1,11 +1,8 @@
 import { NostoSession as NostoComponent } from "@nosto/nosto-react/shopify-hydrogen";
 import { useShopQuery, gql, useSession, useShop } from "@shopify/hydrogen";
 import { sha256 } from "js-sha256";
-import { Suspense } from "react";
 
 export default function NostoSession(props) {
-  console.log("NOSTO SESSION!!!");
-
   const { storeDomain } = useShop();
   const { customerAccessToken } = useSession();
   const QUERY = gql`
