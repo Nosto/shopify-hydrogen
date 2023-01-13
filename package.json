@@ -12,7 +12,8 @@
     "./plugin": "./src/plugin.js"
   },
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "postinstall": "vite build"
   },
   "dependencies": {
     "@nosto/nosto-react": "github:Nosto/nosto-react#updatesForHydrogen",
