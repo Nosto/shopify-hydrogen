@@ -10,13 +10,6 @@
   "exports": {
     ".": "./src/index.js"
   },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "prepare": "yarn build",
-    "postinstall": "yarn build"
-  },
   "dependencies": {
     "@nosto/nosto-react": "github:Nosto/nosto-react#updatesForHydrogen",
     "@nosto/test-component": "github:dominikgilg/test-component",
