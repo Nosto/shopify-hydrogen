@@ -1,10 +1,14 @@
-const nostoHydrogenPlugin = () => ({
+"use strict";
+
+const nostoHydrogen = () => ({
   name: "nosto-hydrogen-plugin",
   config: () => ({
+    enforce: "pre",
     optimizeDeps: {
-      include: ["js-sha256"],
+      include: ["js-sha256", "@nosto/shopify-hydrogen"],
     },
   }),
 });
 
-export default nostoHydrogenPlugin;
+exports.default = nostoHydrogen; // For ESM
+module.exports = nostoHydrogen;
