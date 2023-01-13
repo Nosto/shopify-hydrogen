@@ -18,7 +18,7 @@
     "postinstall": "yarn build"
   },
   "dependencies": {
-    "@nosto/nosto-react": "github:Nosto/nosto-react#addAdditionalExportForPrebuild",
+    "@nosto/nosto-react": "github:Nosto/nosto-react#updatesForHydrogen",
     "@vitejs/plugin-react": "^3.0.0",
     "js-sha256": "^0.2.0",
     "vite": "^4.0.0"
