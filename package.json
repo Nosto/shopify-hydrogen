@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@nosto/nosto-react": "github:Nosto/nosto-react#updatesForHydrogen",
+    "@nosto/test-component": "github:dominikgilg/test-component",
     "@vitejs/plugin-react": "^3.0.0",
     "js-sha256": "^0.2.0",
     "vite": "^4.0.0"
