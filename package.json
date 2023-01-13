@@ -9,7 +9,7 @@
   "module": "src/index.js",
   "exports": {
     ".": "./src/index.js",
-    "./plugin": ".src/plugin.js"
+    "./plugin": "./src/plugin.js"
   },
   "dependencies": {
     "@nosto/nosto-react": "github:Nosto/nosto-react#updatesForHydrogen",
