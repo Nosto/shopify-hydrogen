@@ -13,5 +13,5 @@ const nostoHydrogen = () => ({
   }),
 });
 
-exports.default = Nosto; // For ESM
-module.exports = Nosto;
+exports.default = nosto; // For ESM
+module.exports = nosto;
