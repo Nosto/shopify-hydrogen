@@ -22,10 +22,9 @@ export default function NostoSession(props) {
     query: QUERY,
   });
 
-  console.log("test-hash", sha256("test"));
-
   if (customerData?.id && storeDomain) {
     customerData.customerReference = sha256(customerData.id + storeDomain);
+    console.log("HASHED CUSTOMER REFERENCE:", customerData.customerReference);
   }
 
   return <NostoComponent customerData={customerData} type="NostoSession" />;
