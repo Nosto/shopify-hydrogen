@@ -10,3 +10,4 @@ export { default as NostoPlacement } from "./client/NostoPlacement.client";
 export { default as NostoProduct } from "./client/NostoProduct.client";
 export { default as NostoSearch } from "./client/NostoSearch.client";
 export { default as NostoProvider } from "./client/NostoProvider.client";
+export { default as NostoSessionClient } from "./client/NostoSession.client";
