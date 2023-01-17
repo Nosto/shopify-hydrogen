@@ -24,7 +24,6 @@ export default function NostoSession() {
 
   if (customerData?.id && storeDomain) {
     customerData.customerReference = sha256(customerData.id + storeDomain);
-    console.log("hashed customer reference:", customerData.customerReference);
   }
 
   return <NostoSessionClient customerData={customerData} />;

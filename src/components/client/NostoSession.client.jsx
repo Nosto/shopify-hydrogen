@@ -7,9 +7,8 @@ export default function (props) {
   //Sync cart with Nosto:
   const nostoCart = [];
   shopifyCart.lines.forEach((item) => {
-    let product_id =
-      item?.merchandise?.product.id.split("/").at(-1) || undefined;
-    let sku_id = item?.merchandise?.id.split("/").at(-1) || undefined;
+    let product_id = item?.merchandise?.product.id.split("/")?.at(-1);
+    let sku_id = item?.merchandise?.id.split("/")?.at(-1);
     let quantity = item?.quantity;
     let unit_price = +item?.merchandise?.priceV2?.amount;
     let price_currency_code = item?.merchandise?.priceV2?.currencyCode;
