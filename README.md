@@ -26,7 +26,7 @@ yarn add @nosto/shopify-hydrogen
 The first step is to import the Nosto plugin into `vite.config.js` in the root of your Hydrogen project and add it to the plugins array inside the configuration:
 
 ```js
-//vite.config.js
+// vite.config.js
 
 import {defineConfig} from 'vite';
 import hydrogen from '@shopify/hydrogen/plugin';
