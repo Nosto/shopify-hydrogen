@@ -40,8 +40,6 @@ export default defineConfig({
 
 ### Adding components
 
-The library uses @nosto/nosto-react under the hood and combines it with Hydrogen specific hooks and functionality. You can import the same components as in our native react lib.
-
 #### NostoProvider
 
 - The NostoProvider component is **required** and provides the Nosto functionality.
