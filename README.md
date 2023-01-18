@@ -143,7 +143,7 @@ function HomepageContent() {
 ```jsx
 // src/routes/products/[handle].server.jsx
 
-import {NostoProduct, NostoPlacement} from '@nosto/shopify-hydrogen';
+import { NostoProduct, NostoPlacement } from '@nosto/shopify-hydrogen';
 
 export default function Product() {
 
