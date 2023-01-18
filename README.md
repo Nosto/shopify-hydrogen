@@ -49,7 +49,7 @@ The library uses @nosto/nosto-react under the hood and combines it with Hydrogen
 - Pass your Nosto merchant ID via the `account` prop.
 
 ```jsx
-//src/App.server.jsx
+// src/App.server.jsx
 
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
@@ -75,7 +75,7 @@ function App() {
 - No props required, the component handles the whole functionality and interacts with Nosto automatically.
 
 ```jsx
-//src/App.server.jsx
+// src/App.server.jsx
 
 import { NostoProvider, NostoSession } from "@nosto/shopify-hydrogen";
 
@@ -116,7 +116,7 @@ import { NostoPlacement } from "@nosto/shopify-hydrogen";
 - Must be rendered as last of all Nosto components on the page.
 
 ```jsx
-//src/routes/index.server.jsx
+// src/routes/index.server.jsx
 
 import { NostoHome, NostoPlacement } from "@nosto/shopify-hydrogen";
 
@@ -141,7 +141,7 @@ function HomepageContent() {
 - Must be rendered as last of all Nosto components on the page.
 
 ```jsx
-//src/routes/products/[handle].server.jsx
+// src/routes/products/[handle].server.jsx
 
 import {NostoProduct, NostoPlacement} from '@nosto/shopify-hydrogen';
 
@@ -173,7 +173,7 @@ export default function Product() {
 - Must be rendered as last of all Nosto components on the page.
 
 ```jsx
-//src/routes/collections/[handle].server.jsx
+// src/routes/collections/[handle].server.jsx
 
 import { NostoCategory, NostoPlacement } from "@nosto/shopify-hydrogen";
 
@@ -197,7 +197,7 @@ export default function Collection() {
 - Must be rendered as last of all Nosto components on the page.
 
 ```jsx
-//src/routes/search.server.jsx
+// src/routes/search.server.jsx
 
 import { NostoSearch, NostoPlacement } from "@nosto/shopify-hydrogen";
 
@@ -248,7 +248,7 @@ function OtherPage() {
 - Must be rendered as last of all Nosto components on the page.
 
 ```jsx
-//src/components/global/NotFound.server.jsx
+// src/components/global/NotFound.server.jsx
 
 import { NostoCheckout, NostoPlacement } from "@nosto/shopify-hydrogen";
 
@@ -272,7 +272,7 @@ export default function Cart() {
 - Must be rendered as last of all Nosto components on the page.
 
 ```jsx
-//src/components/global/NotFound.server.jsx
+// src/components/global/NotFound.server.jsx
 
 import { NostoOther, NostoPlacement } from "@nosto/shopify-hydrogen";
 
