@@ -1,7 +1,6 @@
 # @nosto/shopify-hydrogen
 
 - `@nosto/shopify-hydrogen` is a React component library to implement Nosto within Shopify Hydrogen apps.
-- The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) under the hood and combines it with Hydrogen specific hooks and functionality.
 - You can check our [Hydrogen demo store](https://github.com/Nosto/shopify-hydrogen-demo) to see this library implemented in an actual Hydrogen project.
   > :warning: This project is a work-in-progress and is not yet considered as production-ready. Full functionality will be achieved in our 1.0.0 release planned in Q1/2023.
 
@@ -39,6 +38,8 @@ export default defineConfig({
 ```
 
 ### Adding components
+
+The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) under the hood and combines it with Hydrogen specific hooks and functionality. You can import the same components as in our native react lib.
 
 #### NostoProvider
 
