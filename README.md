@@ -49,7 +49,7 @@ The library uses @nosto/nosto-react under the hood and combines it with Hydrogen
 - Pass your Nosto merchant ID via the `account` prop.
 
 ```jsx
-//App.server.jsx
+//src/App.server.jsx
 
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
@@ -75,7 +75,7 @@ function App() {
 - No props required, the component handles the whole functionality and interacts with Nosto automatically.
 
 ```jsx
-//App.server.jsx
+//src/App.server.jsx
 
 import { NostoProvider, NostoSession } from "@nosto/shopify-hydrogen";
 
