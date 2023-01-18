@@ -3,7 +3,7 @@
 - `@nosto/shopify-hydrogen` is a React component library to implement Nosto within Shopify Hydrogen apps.
 - You can check our [Hydrogen demo store](https://github.com/Nosto/shopify-hydrogen-demo) to see this library implemented in an actual Hydrogen project.
 
-> :warning: This project is a work-in-progress and is not yet considered as production-ready. Full functionality will be achieved in our 1.0.0 release planned in Q1/2023.
+> :warning: This project is a work-in-progress and is not yet considered production-ready. Full functionality will be achieved in our 1.0.0 release planned in Q1/2023.
 
 ## Installation
 
@@ -100,20 +100,24 @@ function App() {
 #### NostoPlacement
 
 - The NostoPlacement component renders a static Nosto placement.
+- Placements are used to inject recommendations	and content directly into the page. It’s advised to add these wherever you may wish to add personalisation later.
 - Pass the placement id via the `id` prop.
 
 ```jsx
 import { NostoPlacement } from "@nosto/shopify-hydrogen";
 
 <NostoPlacement id="frontpage-nosto-1" />;
+<NostoPlacement id="frontpage-nosto-2” />;
 ```
+:warning: The concept of dynamic placements does not apply to Shopify Hydrogen headless environments. All placements should be statically placed where needed. Nosto dynamic placements have been disabled in Shopify Hydrogen builds, as they interfere with React's DOM rendering process and can adversely affect site navigation.
 
 #### NostoHome
 
 - The NostoHome component needs to be added on the home/front page.
 - It loads the campaigns for all the Nosto placements on the page.
 - No props required.
-- Must be rendered as last of all Nosto components on the page.
+- Must be added at the end of all Nosto components on the page. 
+- This is a page-specific tag. There are other page-specific components described later in this doc.
 
 ```jsx
 // src/routes/index.server.jsx
@@ -135,10 +139,10 @@ function HomepageContent() {
 #### NostoProduct
 
 - The NostoProduct component needs to be added on product pages.
-- It loads the campaigns for all the Nosto placements on the page.
-- Pass the product id via the `product` prop
-- For Nosto tagging pass the product data via the `tagging` prop
-- Must be rendered as last of all Nosto components on the page.
+- It loads the campaigns for all the `<NostoPlacement>`s on the page.
+- Pass the product ID via the `product` prop
+- For Nosto tagging, pass the product data via the `tagging` prop. This allows Nosto to better personalise the result served to the page.
+- Must be added at the end of all Nosto components on the page.
 
 ```jsx
 // src/routes/products/[handle].server.jsx
@@ -170,7 +174,7 @@ export default function Product() {
 - The NostoCategory component needs to be added on collection pages.
 - It loads the campaigns for all the Nosto placements on the page.
 - Pass the collection title via the `category` prop.
-- Must be rendered as last of all Nosto components on the page.
+- Must be added at the end of all Nosto components on the page.
 
 ```jsx
 // src/routes/collections/[handle].server.jsx
@@ -194,7 +198,7 @@ export default function Collection() {
 - The NostoSearch component needs to be added on the search page.
 - It loads the campaigns for all the Nosto placements on the page.
 - Pass the search term via the `query` prop.
-- Must be rendered as last of all Nosto components on the page.
+- Must be added at the end of all Nosto components on the page.
 
 ```jsx
 // src/routes/search.server.jsx
@@ -223,7 +227,7 @@ export default function Search() {
 - The NostoOther component needs to be added on pages with no specific page type.
 - It loads the campaigns for all the Nosto placements on the page.
 - No props required.
-- Must be rendered as last of all Nosto components on the page.
+- Must be added at the end of all Nosto components on the page.
 
 ```jsx
 import { NostoOther, NostoPlacement } from "@nosto/shopify-hydrogen";
@@ -245,7 +249,8 @@ function OtherPage() {
 - The NostoCheckout component needs to be added on the cart page.
 - It loads the campaigns for all the Nosto placements on the page.
 - No props required.
-- Must be rendered as last of all Nosto components on the page.
+- Must be added at the end of all Nosto components on the page.
+- Order details are automatically passed with the help of the Nosto script that is loaded on the page already. Once the user is taken back to the website post-payment, this order information is logged internally. 
 
 ```jsx
 // src/components/global/NotFound.server.jsx
@@ -269,7 +274,7 @@ export default function Cart() {
 - The Nosto404 component needs to be added on 404/not found pages.
 - It loads the campaigns for all the Nosto placements on the page.
 - No props required.
-- Must be rendered as last of all Nosto components on the page.
+- Must be added at the end of all Nosto components on the page.
 
 ```jsx
 // src/components/global/NotFound.server.jsx
