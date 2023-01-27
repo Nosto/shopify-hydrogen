@@ -293,6 +293,15 @@ export function NotFound() {
 }
 ```
 
+
+
+### Feedback
+
+If you've found a feature missing or you would like to report an issue, simply [open up an issue](https://github.com/nosto/shopify-hydrogen/issues/new) and let us know. 
+
+We're always collecting feedback and learning from your use-cases. If you find yourself customising widgets and forking the repo to make patches - do drop a message. We'd love to know more and understand how we can make this library even better for you.
+
+
 ## Authors
 
 - **Dominik Gilg** - [dominikgilg](https://github.com/dominikgilg)
