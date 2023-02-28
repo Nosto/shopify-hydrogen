@@ -4,7 +4,7 @@
 
 Our component library is designed to help you easily integrate Nosto features into your Hydrogen-based storefront, enhancing your eCommerce user interface and providing a seamless customer experience.
 
-Our library includes a comprehensive set of reusable components, each designed to support a specific feature or functionality of Nosto, such as client-side rendering for recommendations, on-site content personalization, and analytics. With our library, you can quickly and easily implement Nosto features into your storefront and take advantage of the many benefits that Nosto has to offer.
+Our library includes a comprehensive set of reusable components, each designed to support a specific feature or functionality of Nosto. With our library, you can quickly and easily implement Nosto features into your storefront.
 
 This README is designed to provide you with an overview of our component library, including instructions on how to install and use our components, as well as information on the features and functionalities that our library supports. 
 
@@ -14,7 +14,7 @@ It's important to note that our React component library for Shopify Hydrogen is 
 
 ## Demo store
 
-To see our React component library in action in a Hydrogen project, we invite you to check out our [Shopify Hydrogen demo store](https://shopify-hydrogen-demo.nosto.com/). The code for the demo store is available on our [GitHub repository](https://github.com/Nosto/shopify-hydrogen-demo). We hope that our Hydrogen demo store will serve as a source of inspiration for your own storefront development, and we encourage you to explore our component library and customize it to fit your unique eCommerce needs.
+To see our React component library in action in a Hydrogen project, we invite you to check out our [Shopify Hydrogen demo store](https://shopify-hydrogen-demo.nosto.com/). The code for the demo store is available on our [GitHub repository](https://github.com/Nosto/shopify-hydrogen-demo). We hope that our Hydrogen demo store will serve as a source of inspiration for your own storefront development, and we encourage you to explore our component library as well and customize it further to fit your unique needs.
 
 ## Feature list
 
