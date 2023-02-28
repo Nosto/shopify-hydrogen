@@ -138,8 +138,8 @@ import { NostoPlacement } from "@nosto/shopify-hydrogen";
 <NostoPlacement id="frontpage-nosto-1" />;
 <NostoPlacement id="frontpage-nosto-2” />;
 ```
-#### :warning: _Note about dynamic placements in Shopify Hydrogen_
-The concept of dynamic placements does not apply to Shopify Hydrogen headless environments. All placements should be statically placed where needed. Nosto dynamic placements have been disabled in Shopify Hydrogen builds, as they interfere with React's DOM rendering process and can adversely affect site navigation.
+##### :warning: Note about dynamic placements in Shopify Hydrogen
+Please note that the concept of dynamic placements does not apply to Shopify Hydrogen headless environments, as they can interfere with React's DOM rendering process and adversely affect site navigation. As such, we have disabled Nosto's dynamic placement feature in our React component library for Shopify Hydrogen builds. Instead, all placements should be statically placed where needed. While dynamic placements may be a useful feature in other environments, we have found that they are not compatible with the unique architecture of Shopify Hydrogen, and can cause unexpected behavior in your storefront.
 
 #### NostoHome
 
