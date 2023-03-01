@@ -76,6 +76,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - The NostoProvider component is **required** and provides the Nosto functionality.
 - It must wrap all other Nosto components.
 - Pass your Nosto merchant ID via the `account` prop.
+- Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
 
 ```jsx
 // src/App.server.jsx
@@ -87,13 +88,75 @@ function App() {
     <ShopifyProvider>
       <CartProvider>
         <Router>
-          <NostoProvider account="shopify-01234567890">
+          <NostoProvider account="shopify-01234567890" recommendationComponent={<NostoSlot />}>
             <FileRoutes />
             <Route path="*" page={<NotFound />} />
           </NostoProvider>
         </Router>
       </CartProvider>
     </ShopifyProvider>
+  );
+}
+```
+#### Client side rendering for recommendations
+
+In order to implement client-side rendering, the <NostoProvider> requires a designated component to render the recommendations provided by Nosto. This component should be capable of processing the JSON response received from our backend. Notice the `recommendationComponent={<NostoSlot />}` prop passed to `<NostoProvider>` above. 
+
+We have included a set of basic components as examples, however, additional customizations can be made to suit specific requirements. It is important to note that these components serve as a starting point for implementation.
+
+```jsx
+// src/recommendationrender/NostoItem.client.jsx
+
+export function NostoItem({product, onClick}) {
+  return (
+    <div className="nosto-item" onClick={onClick}>
+      <a href={product.url}>
+        <div className="nosto-image-container">
+          <div className="nosto-image">
+            <img src={product.thumb_url} alt={product.name} />
+          </div>
+          <div className="nosto-product-details">
+            <div className="nosto-product-name">{product.name}</div>
+            <div className="nosto-product-price">{product.price_text}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  );
+}
+```
+
+Additionally, we have a component that will use `<NostoItem>` in slots defined for recommendations.
+```jsx
+// src/recommendationrender/NostoSlot.client.jsx
+
+import {NostoItem} from './NostoItem.client';
+
+export function NostoSlot({nostoRecommendation}) {
+  let {title, products, result_id} = nostoRecommendation;
+
+  function reportClick(productId) {
+    // To report attribution for product clicks towards segmentation & analytics
+    window?.nostojs(function (api) {
+      api.defaultSession().recordAttribution('vp', productId, result_id).done();
+    });
+  }
+
+  return (
+    <div className="nosto-container">
+      <h2 className="nosto-title">{title}</h2>
+      <div className="nosto-list">
+        {products.map((product) => (
+          <NostoItem
+            product={product}
+            key={product.product_id}
+            onClick={() => {
+              reportClick(product.product_id);
+            }}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 ```
@@ -140,6 +203,7 @@ import { NostoPlacement } from "@nosto/shopify-hydrogen";
 ```
 ##### :warning: Dynamic placements and Shopify Hydrogen
 Please note that the concept of dynamic placements does not apply to Shopify Hydrogen headless environments, as they can interfere with React's DOM rendering process and adversely affect site navigation. As such, we have disabled Nosto's dynamic placement feature in our React component library for Shopify Hydrogen builds. Instead, all placements should be statically placed where needed with the `NostoPlacement` component described above. While dynamic placements may be a useful feature in other environments, we have found that they are not compatible with the unique architecture of Shopify Hydrogen, and can cause unexpected behavior in your storefront.
+
 
 #### NostoHome
 
