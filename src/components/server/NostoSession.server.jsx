@@ -1,6 +1,7 @@
 import { NostoSessionClient } from "../index.client";
-import { gql, useSession, useShop } from "@shopify/hydrogen";
+import { gql, useShop } from "@shopify/hydrogen";
 import { sha256 } from "js-sha256";
+import {useLoaderData} from "@remix-run/react";
 
 export async function loader({params, context}) {
   const customerAccessToken = await context.session.get('customerAccessToken');
@@ -18,9 +19,7 @@ export default function NostoSession() {
 
   const {
     data: { customer: customerData },
-  } = useShopQuery({
-    query: QUERY,
-  });//TODO replace with remix useLoaderData
+  } = useLoaderData()
 
   if (customerData?.id && storeDomain) {
     customerData.customerReference = sha256(customerData.id + storeDomain);
