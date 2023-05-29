@@ -22,6 +22,18 @@ export async function getCart({storefront}, cartId) {
 export async function loader({context}) {
   const {storefront} = context;
   const customerAccessToken = await context.session.get('customerAccessToken');
+  const QUERY = `#graphql
+          query {
+          customer(customerAccessToken: "${customerAccessToken}") {
+            firstName
+            lastName
+            email
+            acceptsMarketing
+            id
+          }
+        }
+        `;
+
   const { customerData } = await context.storefront.query(QUERY, {
     variables: {
       customerAccessToken
@@ -48,18 +60,6 @@ export default function NostoSession() {
 
   return <NostoSessionClient customerData={customerData} />;
 }
-
-const QUERY = `#graphql
-          query {
-          customer(customerAccessToken: "${customerAccessToken}") {
-            firstName
-            lastName
-            email
-            acceptsMarketing
-            id
-          }
-        }
-        `;
 
 const CART_QUERY = `#graphql
   query ($cartId: ID!, $country: CountryCode, $language: LanguageCode)
