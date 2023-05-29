@@ -26,6 +26,7 @@ for (const C of [Array, String, TypedArray]) {
 
 export default function (props) {
   const shopifyCart = useCart();
+  console.log("Shopify Cart", shopifyCart)
 
   //Sync cart with Nosto:
   const nostoCart = [];

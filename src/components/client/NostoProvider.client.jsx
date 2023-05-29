@@ -9,7 +9,8 @@ export async function loader({context}) {
 
 export default function (props) {
   //Get currentVariation based on country
-  const { country } = useLoaderData()
+  const { country } = useLoaderData();
+  console.log(country)
   const providerProps = {};
   if (props.multiCurrency) {
     fetch("/api/countries")
@@ -19,6 +20,7 @@ export default function (props) {
               ?.isoCode || "";
         });
   }
+   console.log(providerProps, props)
 
   return <NostoComponent {...providerProps} {...props} />;
 }

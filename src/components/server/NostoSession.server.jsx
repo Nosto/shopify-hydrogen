@@ -5,6 +5,7 @@ import invariant from 'tiny-invariant';
 import { json } from "@shopify/remix-oxygen";
 
 export async function getCart({storefront}, cartId) {
+  console.log(cartId, storefront)
   invariant(storefront, 'missing storefront client in cart query');
 
   const {cart} = await storefront.query(CART_QUERY, {
@@ -22,6 +23,7 @@ export async function getCart({storefront}, cartId) {
 export async function loader({context}) {
   const {storefront} = context;
   const customerAccessToken = await context.session.get('customerAccessToken');
+  console.log(customerAccessToken)
   const QUERY = `#graphql
           query {
           customer(customerAccessToken: "${customerAccessToken}") {
@@ -48,6 +50,7 @@ export async function loader({context}) {
   const cartId = await context.session.get('cartId')
   let cart = cartId ? await getCart(context, cartId) : undefined
 
+  console.log(customerData, shop, cart)
   return json({customerData, shop, cart});
 }
 
