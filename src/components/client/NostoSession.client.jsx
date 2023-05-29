@@ -1,5 +1,5 @@
 import { NostoSession as NostoComponent } from "@nosto/nosto-react/shopify-hydrogen";
-import { useCart } from "@shopify/hydrogen";
+import {useCart} from "../../hooks/getCart.js";
 
 /* Polyfill for older platforms that don't support Array.at()
   Reference: https://github.com/tc39/proposal-relative-indexing-method#polyfill
@@ -26,6 +26,7 @@ for (const C of [Array, String, TypedArray]) {
 
 export default function (props) {
   const shopifyCart = useCart();
+  console.log("Shopify Cart", shopifyCart)
 
   //Sync cart with Nosto:
   const nostoCart = [];
