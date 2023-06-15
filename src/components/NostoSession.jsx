@@ -27,7 +27,7 @@ export default function NostoSession() {
 
     //Get nostoData from root remix loader:
     const [root] = useMatches();
-    const { customer: customerData = {}, storeDomain } = root?.data?.nostoData;
+    const { customer: customerData = {}, storeDomain } = root?.data?.nostoData || {};
     console.log({ root })
 
     //Get customer data to sync with Nosto:
