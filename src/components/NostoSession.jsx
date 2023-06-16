@@ -2,33 +2,25 @@ import { NostoSession as NostoComponent } from "@nosto/nosto-react";
 import { sha256 } from "js-sha256";
 import { useMatches, Await, useAsyncValue } from "@remix-run/react";
 
-function AsyncSessionWrapper({ customer }) {
-    const shopifyCart = useAsyncValue();
-
-    if (!shopifyCart) return <NostoComponent customer={customer} />
-
-    let items = shopifyCart.lines.edges.map(item => item.node)
-    let nostoCart = items.map(item => {
-        return {
-            product_id: item?.merchandise?.product.id.split("/")?.at(-1),
-            sku_id: item?.merchandise?.id.split("/")?.at(-1),
-            quantity: item?.quantity,
-            unit_price: +item?.merchandise?.price?.amount,
-            price_currency_code: item?.merchandise?.price?.currencyCode
-        }
-    })
-    console.log('Async Session rendered');
-    console.log({ nostoCart, customer })
-
-    return <NostoComponent customer={customer} cart={{ items: nostoCart }} />
+//Polyfill the Array.prototype.at() method for all browsers
+if (!Array.prototype.at) {
+    Object.defineProperty(Array.prototype, 'at', {
+        value: function (index) {
+            if (index >= 0) {
+                return this[index];
+            } else {
+                return this[this.length + index];
+            }
+        },
+        enumerable: false,
+        configurable: true,
+        writable: true
+    });
 }
 
-export default function NostoSession() {
-
-    //Get nostoData from root remix loader:
-    const [root] = useMatches();
-    const { customer: customerData = {}, storeDomain } = root?.data?.nostoData || {};
-    console.log({ root })
+function AsyncSessionWrapper() {
+    //Resolve async data:
+    const { customer: customerData = {}, cart: shopifyCart, storeDomain } = useAsyncValue() || {};
 
     //Get customer data to sync with Nosto:
     let customerId = customerData?.id?.split('/').at(-1);
@@ -41,9 +33,33 @@ export default function NostoSession() {
         newsletter: customerData?.acceptsMarketing ?? undefined
     }
 
+    //Get cart data to sync with Nosto:
+    let items = shopifyCart?.lines?.edges?.map(item => item.node)
+    let nostoCart = items?.map(item => {
+        return {
+            product_id: item?.merchandise?.product.id.split("/")?.at(-1),
+            sku_id: item?.merchandise?.id.split("/")?.at(-1),
+            quantity: item?.quantity,
+            unit_price: +item?.merchandise?.price?.amount,
+            price_currency_code: item?.merchandise?.price?.currencyCode
+        }
+    })
+    let cart = nostoCart ? { items: nostoCart } : undefined;
+
+    console.log('NostoSession data:', { cart, customer })
+
+    return <NostoComponent customer={customer} cart={cart} />
+}
+
+export default function NostoSession() {
+
+    //Get nostoData promise from root remix loader:
+    const [root] = useMatches();
+    const nostoPromise = root?.data?.nostoData;
+
     return (
-        <Await resolve={root.data?.cart}>
-            <AsyncSessionWrapper customer={customer} />
+        <Await resolve={nostoPromise}>
+            <AsyncSessionWrapper />
         </Await>
     )
 }
