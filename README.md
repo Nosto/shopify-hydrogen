@@ -1,6 +1,6 @@
 # @nosto/shopify-hydrogen
 
-### Welcome to the Nosto React Component Library for Shopify Hydrogen! 
+### Welcome to the Nosto React Component Library for Shopify Hydrogen V1! 
 
 Our component library is designed to help you easily integrate Nosto features into your Hydrogen-based storefront.
 

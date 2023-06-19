@@ -1,6 +1,6 @@
 {
   "name": "@nosto/shopify-hydrogen",
-  "description": "Component library to implement Nosto within Shopify Hydrogen",
+  "description": "Component library to implement Nosto within Shopify Hydrogen V1",
   "author": "Dominik Gilg",
   "license": "ISC",
   "repository": {
@@ -13,7 +13,7 @@
     "shopify",
     "hydrogen"
   ],
-  "version": "0.9.1",
+  "version": "1.0.0",
   "files": [
     "dist",
     "src"
