@@ -21,4 +21,5 @@ jobs:
           token: ${{ secrets.NPMJS_TOKEN }}
           access: "public"
           dry-run: false
-      - run: npm dist-tag add @nosto/shopify-hydrogen ${{ env.npm_package_version }} v1
+      - name: Add dist-tag
+        run: npm dist-tag add @nosto/shopify-hydrogen@${{ env.npm_package_version }} v1
