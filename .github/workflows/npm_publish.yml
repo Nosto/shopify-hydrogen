@@ -1,9 +1,9 @@
-name: npm_publish
+name: npm_publish_OLD_VERSION
 
 on:
   push:
     branches:
-      - ${{ github.ref }}
+      - hydrogen-v1-DONT-MERGE
 
 jobs:
   publish:
