@@ -19,4 +19,5 @@ jobs:
       - uses: JS-DevTools/npm-publish@v2
         with:
           token: ${{ secrets.NPMJS_TOKEN }}      
-          access: public    
+          access: public   
+          tag: legacy 
