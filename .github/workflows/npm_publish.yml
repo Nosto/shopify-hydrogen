@@ -16,7 +16,7 @@ jobs:
           node-version: 16.15.0
       - run: npm init --scope=nosto -y
       - run: npm install
-      - uses: JS-DevTools/npm-publish@v2
+      - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}          
           access: "public"
