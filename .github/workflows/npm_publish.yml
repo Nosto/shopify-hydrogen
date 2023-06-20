@@ -1,4 +1,4 @@
-name: npm_publish_OLD_VERSION
+name: npm_publish
 
 on:
   push:
