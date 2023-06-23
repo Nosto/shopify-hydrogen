@@ -8,6 +8,9 @@ The library includes a comprehensive set of reusable components, each designed t
 
 This README is designed to provide you with an overview of our component library, including instructions on how to install and use our components, as well as information on the features and functionalities that our library supports. 
 
+
+> :warning: Please note that the information provided in this documentation is specific to Hydrogen 2, which is built on Remix. If your storefront is still running on Hydrogen 1, we recommend referring to our [documentation specifically tailored for Hydrogen 1](https://github.com/Nosto/shopify-hydrogen/tree/hydrogen-v1). This will ensure that you access the appropriate guidance and instructions for your specific version.
+
 ## nosto-react
 
 It's important to note that our React component library for Shopify Hydrogen is an extension of our nosto-react library, a powerful and flexible library that provides seamless integration with Nosto. Our Shopify Hydrogen-specific component library builds upon the core functionality of [nosto-react](https://github.com/Nosto/nosto-react), adding Hydrogen-specific hooks and logic to make integration even easier and more intuitive.
@@ -15,6 +18,7 @@ It's important to note that our React component library for Shopify Hydrogen is 
 ## Demo store
 
 To see our React component library in action in a Hydrogen project, we invite you to check out our [Shopify Hydrogen demo store](https://shopify-hydrogen-demo.nosto.com/). The code for the demo store is available on our [GitHub repository](https://github.com/Nosto/shopify-hydrogen-demo). We hope that our Hydrogen demo store will serve as a source of inspiration for your own storefront development, and we encourage you to explore our component library as well and customize it further to fit your unique needs.
+
 
 ## Feature list
 
@@ -50,26 +54,29 @@ yarn add @nosto/shopify-hydrogen
 
 ## Usage
 
-### Adding the plugin
+### Adding Nosto's fetcher function to the root loader
 
-The first step is to import the Nosto plugin into `vite.config.js` in the root of your Hydrogen project and add it to the plugins array inside the configuration:
+The first step is to import `getNostoData()` and add it to the returned defer object of the loader function as `nostoData`. This provides server based data within Nosto components. Make sure to pass the context and cartId.
 
 ```js
-// vite.config.js
+// app/root.jsx
 
-import {defineConfig} from 'vite';
-import hydrogen from '@shopify/hydrogen/plugin';
-import nosto from '@nosto/shopify-hydrogen/plugin';
+import { getNostoData } from '@nosto/shopify-hydrogen'
 
-export default defineConfig({
-  plugins: [hydrogen(), nosto()],
+export async function loader({ request, context }) {
+  const cartId = getCartId(request);
   ...
-})
+
+  return defer({
+    nostoData: getNostoData({ context, cartId }),
+    ...
+  });
+}
 ```
 
 ### Adding components
 
-The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) under the hood combined with Hydrogen specific hooks and functionality. You can import the following components:
+The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) under the hood combined with Hydrogen functionality. You can import the following components:
 
 #### NostoProvider
 
@@ -77,24 +84,25 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - It must wrap all other Nosto components.
 - Pass your Nosto merchant ID via the `account` prop.
 - Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
+- Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
 
 ```jsx
-// src/App.server.jsx
+// app/root.jsx
 
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
 function App() {
   return (
-    <ShopifyProvider>
-      <CartProvider>
-        <Router>
-          <NostoProvider account="shopify-01234567890" recommendationComponent={<NostoSlot />}>
-            <FileRoutes />
-            <Route path="*" page={<NotFound />} />
-          </NostoProvider>
-        </Router>
-      </CartProvider>
-    </ShopifyProvider>
+      ...
+      <body>
+        <NostoProvider currentVariation={locale.currency} account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+          <Layout>
+            <Outlet/>
+          </Layout>
+        </NostoProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
   );
 }
 ```
@@ -105,7 +113,7 @@ In order to implement client-side rendering, the <NostoProvider> requires a desi
 We have included a set of basic components as examples, however, additional customizations can be made to suit specific requirements. It is important to note that these components serve as a starting point for implementation.
 
 ```jsx
-// src/recommendationrender/NostoItem.client.jsx
+// app/components/nosto/NostoItem.jsx
 
 export function NostoItem({product, onClick}) {
   return (
@@ -128,9 +136,9 @@ export function NostoItem({product, onClick}) {
 
 Additionally, we have a component that will use `<NostoItem>` in slots defined for recommendations.
 ```jsx
-// src/recommendationrender/NostoSlot.client.jsx
+// app/components/nosto/NostoSlot.jsx
 
-import {NostoItem} from './NostoItem.client';
+import { NostoItem } from './NostoItem';
 
 export function NostoSlot({nostoRecommendation}) {
   let {title, products, result_id} = nostoRecommendation;
@@ -163,31 +171,7 @@ export function NostoSlot({nostoRecommendation}) {
 
 #### NostoSession
 
-- The NostoSession component syncs customer data and the shopping cart with Nosto.
-- No props required, the component handles the whole functionality and interacts with Nosto automatically.
-
-```jsx
-// src/App.server.jsx
-
-import { NostoProvider, NostoSession } from "@nosto/shopify-hydrogen";
-
-function App() {
-  return (
-    <ShopifyProvider>
-      <CartProvider>
-        <Router>
-          <NostoProvider account="shopify-01234567890">
-            <FileRoutes />
-            <Route path="*" page={<NotFound />} />
-
-            <NostoSession />
-          </NostoProvider>
-        </Router>
-      </CartProvider>
-    </ShopifyProvider>
-  );
-}
-```
+In Hydrogen the NostoSession component is rendered automatically, no need for manually adding it to your app.
 
 #### NostoPlacement
 
@@ -214,11 +198,11 @@ Please note that the concept of dynamic placements does not apply to Shopify Hyd
 - This is a page-specific tag. There are other page-specific components described later in this doc.
 
 ```jsx
-// src/routes/index.server.jsx
+// app/routes/($locale)._index.jsx
 
 import { NostoHome, NostoPlacement } from "@nosto/shopify-hydrogen";
 
-function HomepageContent() {
+function Homepage() {
   return (
     <>
       ...
@@ -239,26 +223,25 @@ function HomepageContent() {
 - Must be added at the end of all Nosto components on the page.
 
 ```jsx
-// src/routes/products/[handle].server.jsx
+// app/routes/($locale).products.$productHandle.jsx
 
 import { NostoProduct, NostoPlacement } from '@nosto/shopify-hydrogen';
 
 export default function Product() {
 
   ...
-  const {media, title, vendor, descriptionHtml, id, productType} = product;
+  const { product } = useLoaderData();
 
-  let nostoProductId = id.split('/')?.at(-1);
+  let nostoProductId = product?.id?.split('/');
+  nostoProductId && (nostoProductId = nostoProductId[nostoProductId.length - 1]);
 
   return (
-    <Layout>
-      <ProductOptionsProvider data={product}>
+      <>
         ...
         <NostoPlacement id="productpage-nosto-1" />
         <NostoPlacement id="productpage-nosto-2" />
-        <NostoProduct product={nostoProductId} tagging={product} />
-      </ProductOptionsProvider>
-    </Layout>
+        <NostoProduct product={nostoProductId} tagging={product} />        
+      </>
   );
 }
 ```
@@ -271,18 +254,21 @@ export default function Product() {
 - Must be added at the end of all Nosto components on the page.
 
 ```jsx
-// src/routes/collections/[handle].server.jsx
+// app/routes/($locale).collections.$collectionHandle.jsx
 
 import { NostoCategory, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export default function Collection() {
+
+  const { collection } = useLoaderData();
+
   return (
-    <Layout>
+    <>
       ...
       <NostoPlacement id="categorypage-nosto-1" />
       <NostoPlacement id="categorypage-nosto-2" />
       <NostoCategory category={collection.title} />
-    </Layout>
+    </>
   );
 }
 ```
@@ -295,23 +281,21 @@ export default function Collection() {
 - Must be added at the end of all Nosto components on the page.
 
 ```jsx
-// src/routes/search.server.jsx
+// app/routes/($locale).search.jsx
 
 import { NostoSearch, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export default function Search() {
-  const { searchParams } = useUrl();
-  const searchTerm = searchParams.get("q");
+
+  const { searchTerm } = useLoaderData();  
 
   return (
-    <SearchPage searchTerm={decodeURI(searchTerm)}>
-      <Section>
-        ...
-        <NostoPlacement id="searchpage-nosto-1" />
-        <NostoPlacement id="searchpage-nosto-2" />
-        <NostoSearch query={searchTerm ? decodeURI(searchTerm) : ""} />
-      </Section>
-    </SearchPage>
+    <>
+      ...
+      <NostoPlacement id="searchpage-nosto-1" />
+      <NostoPlacement id="searchpage-nosto-2" />
+      <NostoSearch query={searchTerm ? decodeURI(searchTerm) : ""} />
+    <>
   );
 }
 ```
@@ -347,18 +331,36 @@ function OtherPage() {
 - Order details are automatically passed with the help of the Nosto script that is loaded on the page already. Once the user is taken back to the website post-payment, this order information is logged internally. 
 
 ```jsx
-// src/components/global/NotFound.server.jsx
+// app/components/Cart.jsx
 
 import { NostoCheckout, NostoPlacement } from "@nosto/shopify-hydrogen";
 
-export default function Cart() {
+export function Cart({ layout, onClose, cart }) {
+  const linesCount = Boolean(cart?.lines?.edges?.length || 0);
+
   return (
-    <Layout>
-      ...
-      <NostoPlacement id="cartpage-nosto-1" />
-      <NostoPlacement id="cartpage-nosto-2" />
+    <>
+      <CartEmpty hidden={linesCount} onClose={onClose} layout={layout} />
+      <CartDetails cart={cart} layout={layout} />
+
+      {/* Render specific Nosto slot when there are items in cart: */}
+      {linesCount && (<NostoPlacement id="cartpage-nosto-1" />)}
+
       <NostoCheckout />
-    </Layout>
+    </>
+  );
+}
+
+export function CartEmpty({ hidden = false}) {
+
+  return (
+    <div>
+      ...
+
+      {/* Render specific Nosto slot when cart is empty: */}
+      {!hidden && (<NostoPlacement id="cartpage-nosto-2" />)}
+
+    </div>
   );
 }
 ```
@@ -369,20 +371,21 @@ export default function Cart() {
 - It loads the campaigns for all the Nosto placements on the page.
 - No props required.
 - Must be added at the end of all Nosto components on the page.
+- Make sure to wrap NostoProvider around ErrorBoundary inside root.jsx
 
 ```jsx
-// src/components/global/NotFound.server.jsx
+// app/components/NotFound.jsx
 
 import { NostoOther, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export function NotFound() {
   return (
-    <Layout>
+    <>
       ...
       <NostoPlacement id="notfound-nosto-1" />
       <NostoPlacement id="notfound-nosto-2" />
       <Nosto404 />
-    </Layout>
+    </>
   );
 }
 ```
