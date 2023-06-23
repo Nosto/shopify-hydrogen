@@ -91,7 +91,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
-function App() {
+export default function App() {
 
   const data = useLoaderData();
   const locale = data.selectedLocale ?? DEFAULT_LOCALE;
@@ -155,6 +155,7 @@ export function NostoItem({product, onClick}) {
 ```
 
 Additionally, we have a component that will use `<NostoItem>` in slots defined for recommendations.
+
 ```jsx
 // app/components/nosto/NostoSlot.jsx
 
@@ -356,6 +357,7 @@ function OtherPage() {
 import { NostoCheckout, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export function Cart({ layout, onClose, cart }) {
+  
   const linesCount = Boolean(cart?.lines?.edges?.length || 0);
 
   return (
