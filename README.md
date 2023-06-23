@@ -92,6 +92,10 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
 function App() {
+
+  const data = useLoaderData();
+  const locale = data.selectedLocale ?? DEFAULT_LOCALE;
+
   return (
       ...
       <body>
@@ -101,6 +105,22 @@ function App() {
           </Layout>
         </NostoProvider>
         <ScrollRestoration />
+        <Scripts />
+      </body>
+  );
+}
+
+export function ErrorBoundary() {
+
+  const [root] = useMatches();
+  const locale = root?.data?.selectedLocale ?? DEFAULT_LOCALE;
+
+  return (
+      ...
+      <body>
+        <NostoProvider currentVariation={locale.currency} account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+          <Layout/>
+        </NostoProvider>
         <Scripts />
       </body>
   );
