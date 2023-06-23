@@ -357,7 +357,7 @@ function OtherPage() {
 import { NostoCheckout, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export function Cart({ layout, onClose, cart }) {
-  
+
   const linesCount = Boolean(cart?.lines?.edges?.length || 0);
 
   return (
@@ -398,7 +398,7 @@ export function CartEmpty({ hidden = false}) {
 ```jsx
 // app/components/NotFound.jsx
 
-import { NostoOther, NostoPlacement } from "@nosto/shopify-hydrogen";
+import { Nosto404, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export function NotFound() {
   return (
