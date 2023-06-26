@@ -1,6 +1,6 @@
 # @nosto/shopify-hydrogen
 
-### Welcome to the Nosto React Component Library for Shopify Hydrogen 1! 
+### Welcome to the Nosto React Component Library for Shopify Hydrogen 1 (legacy)! 
 
 Our component library is designed to help you easily integrate Nosto features into your Hydrogen-based storefront.
 
@@ -38,13 +38,13 @@ _**Note: The search feature is available when implemented via our code editor._
 To install the package into your project, run:
 
 ```sh
-npm install @nosto/shopify-hydrogen
+npm install @nosto/shopify-hydrogen@legacy
 ```
 
 Or if you prefer using Yarn:
 
 ```sh
-yarn add @nosto/shopify-hydrogen
+yarn add @nosto/shopify-hydrogen@legacy
 ```
 
 ## Usage
