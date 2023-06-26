@@ -6,21 +6,21 @@ export async function getNostoData({ context: { storefront, session }, cartId })
   //Get Shopify market id:
   const countryCode = storefront?.i18n?.country
   const NOSTO_MARKET_QUERY = `#graphql
-                                    query{                                    
-                                      localization{
-                                        country{
-                                          isoCode
-                                          name
-                                          market {
-                                            id
-                                            handle
-                                          }
-                                        }
-                                      }                                    
+                                query GetMarketId @inContext(country: ${countryCode}) {
+                                  localization {
+                                    country {
+                                      isoCode
+                                      name
+                                      market {
+                                        id
+                                        handle
+                                      }
                                     }
-                                  `
+                                  }
+                                }
+                              `
   const market = await storefront.query(NOSTO_MARKET_QUERY, {
-    cache: storefront.CacheNone(),
+    cache: storefront.CacheNone()
   });
 
   //Fetch customer data:
