@@ -46,8 +46,6 @@ function AsyncSessionWrapper() {
     })
     let cart = nostoCart ? { items: nostoCart } : undefined;
 
-    console.log('NostoSession data:', { cart, customer })
-
     return <NostoComponent customer={customer} cart={cart} />
 }
 
