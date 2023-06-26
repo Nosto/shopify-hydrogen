@@ -1,6 +1,6 @@
 # @nosto/shopify-hydrogen
 
-### Welcome to the Nosto React Component Library for Shopify Hydrogen V1! 
+### Welcome to the Nosto React Component Library for Shopify Hydrogen 1! 
 
 Our component library is designed to help you easily integrate Nosto features into your Hydrogen-based storefront.
 
@@ -8,13 +8,12 @@ The library includes a comprehensive set of reusable components, each designed t
 
 This README is designed to provide you with an overview of our component library, including instructions on how to install and use our components, as well as information on the features and functionalities that our library supports. 
 
+> :warning: Please note that the information provided in this documentation is specific to Hydrogen 1, a legacy version of Shopify Hydrogen. If your storefront is already running on Hydrogen 2, we recommend referring to our [documentation for Hydrogen 2](https://github.com/Nosto/shopify-hydrogen). This will ensure that you access the appropriate guidance and instructions for your specific version.
+
 ## nosto-react
 
 It's important to note that our React component library for Shopify Hydrogen is an extension of our nosto-react library, a powerful and flexible library that provides seamless integration with Nosto. Our Shopify Hydrogen-specific component library builds upon the core functionality of [nosto-react](https://github.com/Nosto/nosto-react), adding Hydrogen-specific hooks and logic to make integration even easier and more intuitive.
 
-## Demo store
-
-To see our React component library in action in a Hydrogen project, we invite you to check out our [Shopify Hydrogen demo store](https://shopify-hydrogen-demo.nosto.com/). The code for the demo store is available on our [GitHub repository](https://github.com/Nosto/shopify-hydrogen-demo). We hope that our Hydrogen demo store will serve as a source of inspiration for your own storefront development, and we encourage you to explore our component library as well and customize it further to fit your unique needs.
 
 ## Feature list
 
@@ -373,7 +372,7 @@ export default function Cart() {
 ```jsx
 // src/components/global/NotFound.server.jsx
 
-import { NostoOther, NostoPlacement } from "@nosto/shopify-hydrogen";
+import { Nosto404, NostoPlacement } from "@nosto/shopify-hydrogen";
 
 export function NotFound() {
   return (

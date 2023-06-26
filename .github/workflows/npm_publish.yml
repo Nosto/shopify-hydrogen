@@ -4,7 +4,7 @@ name: npm_publish
 on:
   push:
     branches: 
-      - hydrogen-v1-DONT-MERGE
+      - hydrogen-v1
 
 jobs:
   publish:
@@ -16,6 +16,15 @@ jobs:
         with:
           node-version: "18"
       - run: npm i
+      
+      - name: Check version
+        run: |
+          PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+          if [[ ! $PACKAGE_VERSION =~ ^1\..* ]]; then
+            echo "Error: Invalid package version. Only 1.x.x versions are allowed."
+            exit 1
+          fi
+
       - uses: JS-DevTools/npm-publish@v2
         with:
           token: ${{ secrets.NPMJS_TOKEN }}      
