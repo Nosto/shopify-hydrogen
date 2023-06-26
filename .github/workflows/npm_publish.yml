@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "18"
       - run: npm i
-      
+
       - name: Check version
         run: |
           PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
@@ -30,3 +30,4 @@ jobs:
           token: ${{ secrets.NPMJS_TOKEN }}      
           access: public   
           tag: legacy 
+          strategy: upgrade
