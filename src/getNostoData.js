@@ -3,14 +3,12 @@ export async function getNostoData({ context: { storefront, session }, cartId })
   //Get store domain:
   const storeDomain = storefront?.getShopifyDomain?.();
 
-  //Get Shopify market id:
-  const countryCode = storefront?.i18n?.country
+  //Get Shopify market from localization:
+  const countryCode = storefront?.i18n?.country;
   const NOSTO_MARKET_QUERY = `#graphql
                                 query GetMarketId @inContext(country: ${countryCode}) {
                                   localization {
                                     country {
-                                      isoCode
-                                      name
                                       market {
                                         id
                                         handle
@@ -18,10 +16,10 @@ export async function getNostoData({ context: { storefront, session }, cartId })
                                     }
                                   }
                                 }
-                              `
-  const market = await storefront.query(NOSTO_MARKET_QUERY, {
+                              `;
+  const market = countryCode ? await storefront.query(NOSTO_MARKET_QUERY, {
     cache: storefront.CacheNone()
-  });
+  }) : undefined;
 
   //Fetch customer data:
   const customerAccessToken = await session.get('customerAccessToken');
