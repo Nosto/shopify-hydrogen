@@ -20,9 +20,6 @@ if (!Array.prototype.at) {
 
 function AsyncSessionWrapper() {
 
-    const { market } = useAsyncValue();
-    console.log({ market })
-
     //Resolve async data:
     const { customer: customerData = {}, cart: shopifyCart, storeDomain } = useAsyncValue() || {};
 
