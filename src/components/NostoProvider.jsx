@@ -33,6 +33,8 @@ export default function ({ children, ...props }) {
 
   const currentVariation = props?.currentVariation || root?.data?.selectedLocale?.currency;
 
+  console.log('nosto provider, CV', currentVariation)
+
   //If shopifyMarkets is truthy, we render NostoProvider with an Async Await wrapper to fetch the market id via the storefront API:
   if (props.shopifyMarkets && !!nostoPromise) {
     return (
