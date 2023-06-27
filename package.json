@@ -24,12 +24,12 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "github:Nosto/nosto-react",
+    "@nosto/nosto-react": "^0.3.0",
     "js-sha256": "^0.2.0"
   },
   "peerDependencies": {
-    "@remix-run/react": "1.17.1",
-    "@shopify/hydrogen": "^2023.4.5"
+    "@shopify/hydrogen": "^2023.4.5",
+    "@remix-run/react": "1.17.1"
   },
   "bugs": {
     "url": "https://github.com/Nosto/shopify-hydrogen/issues",
