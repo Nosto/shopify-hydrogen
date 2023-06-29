@@ -131,7 +131,7 @@ export function ErrorBoundary() {
 
 #### Shopify markets
 
-- Make sure you have configured markets within your Shopify account. If you need assistance with the setup process, we recommend referring to this helpful article.
+- Make sure you have configured markets within your Shopify account. If you need assistance with the setup process, we recommend referring to this helpful [article](https://help.shopify.com/en/manual/markets/managing-markets).
 - To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop when using the `<NostoProvider/>` component.
 - You can enable automatic market and language detection by simply passing `true` as the value for the `shopifyMarkets` prop.
 - Alternatively, you can manually pass the language and market ID individually using the following format: `{language: "EN", marketId: "123456789"}`.
