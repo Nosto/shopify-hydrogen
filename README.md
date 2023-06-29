@@ -85,6 +85,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - Pass your Nosto merchant ID via the `account` prop.
 - Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
 - Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
+The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself.- 
 
 ```jsx
 // app/root.jsx
@@ -99,7 +100,7 @@ export default function App() {
   return (
       ...
       <body>
-        <NostoProvider currentVariation={locale.currency} account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+        <NostoProvider account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
           <Layout>
             <Outlet/>
           </Layout>
@@ -126,6 +127,26 @@ export function ErrorBoundary() {
   );
 }
 ```
+
+#### Shopify markets
+
+- Ensure that you have configured markets within your Shopify account. If you require assistance with the setup process, we recommend reading this informative [article](https://help.shopify.com/en/manual/markets/managing-markets).
+- To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop.
+- Simply pass `true` to enable automatic market and language detection
+- You can also manually set up the language and marketId individually by using the following format:`{language: "EN", marketId: "123456789"}`
+
+```jsx
+//Enable with automatic data detection:
+<NostoProvivder shopifyMarkets={true} account="shopify-11368366139"/>
+
+//Manually set the language of the market:
+<NostoProvivder shopifyMarkets={{language: "EN"}} account="shopify-11368366139"/>
+
+//Manually set the both language and id of the market:
+<NostoProvivder shopifyMarkets={{language: "EN", marketId: '123456789'}} account="shopify-11368366139"/>
+```
+
+
 #### Client side rendering for recommendations
 
 In order to implement client-side rendering, the <NostoProvider> requires a designated component to render the recommendations provided by Nosto. This component should be capable of processing the JSON response received from our backend. Notice the `recommendationComponent={<NostoSlot />}` prop passed to `<NostoProvider>` above. 
