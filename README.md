@@ -86,7 +86,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - Pass your Nosto merchant ID via the `account` prop.
 - Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
 - Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
-The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself.- 
+- The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself. 
 
 ```jsx
 // app/root.jsx
