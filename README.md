@@ -131,20 +131,21 @@ export function ErrorBoundary() {
 
 #### Shopify markets
 
-- Ensure that you have configured markets within your Shopify account. If you require assistance with the setup process, we recommend reading this informative [article](https://help.shopify.com/en/manual/markets/managing-markets).
-- To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop for `<NostoProvider/>`.
-- Simply pass `true` to enable automatic market and language detection
-- You can also manually set up the language and marketId individually by using the following format:`{language: "EN", marketId: "123456789"}`
+- Make sure you have configured markets within your Shopify account. If you need assistance with the setup process, we recommend referring to this helpful article.
+- To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop when using the `<NostoProvider/>` component.
+- You can enable automatic market and language detection by simply passing `true` as the value for the `shopifyMarkets` prop.
+- Alternatively, you can manually pass the language and market ID individually using the following format: `{language: "EN", marketId: "123456789"}`.
 
 ```jsx
-//Enable with automatic data detection:
-<NostoProvivder shopifyMarkets={true} account="shopify-11368366139"/>
+// Enable with automatic market and language detection:
+<NostoProvider shopifyMarkets={true} account="shopify-11368366139" />
 
-//Manually set the language of the market:
-<NostoProvivder shopifyMarkets={{language: "EN"}} account="shopify-11368366139"/>
+// Manually set only the language of the market:
+<NostoProvider shopifyMarkets={{ language: "EN" }} account="shopify-11368366139" />
 
-//Manually set both language and id of the market:
-<NostoProvivder shopifyMarkets={{language: "EN", marketId: '123456789'}} account="shopify-11368366139"/>
+// Manually set both the language and ID of the market:
+<NostoProvider shopifyMarkets={{ language: "EN", marketId: '123456789' }} account="shopify-11368366139" />
+
 ```
 
 
