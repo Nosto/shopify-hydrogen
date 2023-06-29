@@ -34,9 +34,9 @@ export async function getNostoData({ context: { storefront, session }, cartId })
                                     }
                                   }
                               `
-  const customer = await storefront.query(NOSTO_CUSTOMER_QUERY, {
+  const customer = customerAccessToken ? await storefront.query(NOSTO_CUSTOMER_QUERY, {
     cache: storefront.CacheNone(),
-  });
+  }) : undefined;
 
   //Fetch cart data:
   const NOSTO_CART_QUERY = `#graphql
