@@ -33,6 +33,7 @@ Our React component library for Shopify Hydrogen includes the following features
 * Segmentation and Insights
 * Analytics
 * Search** (when implemented via our code editor)
+* Shopify markets
 
 _*Note: Our React component library currently does not support advanced use cases of the debug toolbar, but we are constantly working to improve our library and provide you with the best possible integration options._
 
@@ -131,7 +132,7 @@ export function ErrorBoundary() {
 #### Shopify markets
 
 - Ensure that you have configured markets within your Shopify account. If you require assistance with the setup process, we recommend reading this informative [article](https://help.shopify.com/en/manual/markets/managing-markets).
-- To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop.
+- To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop for `<NostoProvider/>`.
 - Simply pass `true` to enable automatic market and language detection
 - You can also manually set up the language and marketId individually by using the following format:`{language: "EN", marketId: "123456789"}`
 
@@ -142,7 +143,7 @@ export function ErrorBoundary() {
 //Manually set the language of the market:
 <NostoProvivder shopifyMarkets={{language: "EN"}} account="shopify-11368366139"/>
 
-//Manually set the both language and id of the market:
+//Manually set both language and id of the market:
 <NostoProvivder shopifyMarkets={{language: "EN", marketId: '123456789'}} account="shopify-11368366139"/>
 ```
 
