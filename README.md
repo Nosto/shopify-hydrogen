@@ -33,7 +33,7 @@ Our React component library for Shopify Hydrogen includes the following features
 * Segmentation and Insights
 * Analytics
 * Search** (when implemented via our code editor)
-* Shopify markets
+* Shopify Markets
 
 _*Note: Our React component library currently does not support advanced use cases of the debug toolbar, but we are constantly working to improve our library and provide you with the best possible integration options._
 
@@ -57,7 +57,9 @@ yarn add @nosto/shopify-hydrogen
 
 ### Adding Nosto's fetcher function to the root loader
 
-The first step is to import `getNostoData()` and add it to the returned defer object of the loader function as `nostoData`. This provides server based data within Nosto components. Make sure to pass the context and cartId.
+The first step is to import `getNostoData()` and spread it to the returned defer object of the loader function by using the spread operator `...`. 
+This provides server based data within Nosto components. 
+Make sure to pass the context and cartId.
 
 ```js
 // app/root.jsx
@@ -66,11 +68,10 @@ import { getNostoData } from '@nosto/shopify-hydrogen'
 
 export async function loader({ request, context }) {
   const cartId = getCartId(request);
-  ...
+  //...
 
   return defer({
-    nostoData: getNostoData({ context, cartId }),
-    ...
+    ...(await getNostoData({ context, cartId })),
   });
 }
 ```
@@ -120,7 +121,7 @@ export function ErrorBoundary() {
   return (
       ...
       <body>
-        <NostoProvider currentVariation={locale.currency} account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+        <NostoProvider account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
           <Layout/>
         </NostoProvider>
         <Scripts />
@@ -129,10 +130,10 @@ export function ErrorBoundary() {
 }
 ```
 
-#### Shopify markets
+#### Shopify Markets
 
 - Make sure you have configured markets within your Shopify account. If you need assistance with the setup process, we recommend referring to this helpful [article](https://help.shopify.com/en/manual/markets/managing-markets).
-- To enable Shopify markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop when using the `<NostoProvider/>` component.
+- To enable Shopify Markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop when using the `<NostoProvider/>` component.
 - You can enable automatic market and language detection by simply passing `true` as the value for the `shopifyMarkets` prop.
 - Alternatively, you can manually pass the language and market ID individually using the following format: `{language: "EN", marketId: "123456789"}`.
 
