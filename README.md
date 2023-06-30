@@ -33,6 +33,7 @@ Our React component library for Shopify Hydrogen includes the following features
 * Segmentation and Insights
 * Analytics
 * Search** (when implemented via our code editor)
+* Shopify Markets
 
 _*Note: Our React component library currently does not support advanced use cases of the debug toolbar, but we are constantly working to improve our library and provide you with the best possible integration options._
 
@@ -56,7 +57,11 @@ yarn add @nosto/shopify-hydrogen
 
 ### Adding Nosto's fetcher function to the root loader
 
-The first step is to import `getNostoData()` and add it to the returned defer object of the loader function as `nostoData`. This provides server based data within Nosto components. Make sure to pass the context and cartId.
+- Import `getNostoData` from `@nosto/shopify-hydrogen` into your root.jsx file
+- Invoke the function, passing an object that contains both `context` and `cartId` as properties
+- Spread it to the returned defer object of the root loader by using the spread operator `...` and `await` keyword: `...(await getNostoData({ context, cartId }))`
+
+By following these steps, you enable Nosto components to seamlessly receive relevant server-based data through the root loader.
 
 ```js
 // app/root.jsx
@@ -65,11 +70,10 @@ import { getNostoData } from '@nosto/shopify-hydrogen'
 
 export async function loader({ request, context }) {
   const cartId = getCartId(request);
-  ...
+  //...
 
   return defer({
-    nostoData: getNostoData({ context, cartId }),
-    ...
+    ...(await getNostoData({ context, cartId })),
   });
 }
 ```
@@ -85,6 +89,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - Pass your Nosto merchant ID via the `account` prop.
 - Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
 - Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
+- The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself. 
 
 ```jsx
 // app/root.jsx
@@ -99,7 +104,7 @@ export default function App() {
   return (
       ...
       <body>
-        <NostoProvider currentVariation={locale.currency} account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+        <NostoProvider account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
           <Layout>
             <Outlet/>
           </Layout>
@@ -118,7 +123,7 @@ export function ErrorBoundary() {
   return (
       ...
       <body>
-        <NostoProvider currentVariation={locale.currency} account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+        <NostoProvider account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
           <Layout/>
         </NostoProvider>
         <Scripts />
@@ -126,6 +131,27 @@ export function ErrorBoundary() {
   );
 }
 ```
+
+#### Shopify Markets
+
+- Make sure you have configured markets within your Shopify account. If you need assistance with the setup process, we recommend referring to this helpful [article](https://help.shopify.com/en/manual/markets/managing-markets).
+- To enable Shopify Markets for Nosto in Hydrogen, you can utilize the `shopifyMarkets` prop when using the `<NostoProvider/>` component.
+- You can enable automatic market and language detection by simply passing `true` as the value for the `shopifyMarkets` prop.
+- Alternatively, you can manually pass the language and market ID individually using the following format: `{language: "EN", marketId: "123456789"}`.
+
+```jsx
+// Enable with automatic market and language detection:
+<NostoProvider shopifyMarkets={true} account="shopify-11368366139" />
+
+// Manually set only the language of the market:
+<NostoProvider shopifyMarkets={{ language: "EN" }} account="shopify-11368366139" />
+
+// Manually set both the language and ID of the market:
+<NostoProvider shopifyMarkets={{ language: "EN", marketId: '123456789' }} account="shopify-11368366139" />
+
+```
+
+
 #### Client side rendering for recommendations
 
 In order to implement client-side rendering, the <NostoProvider> requires a designated component to render the recommendations provided by Nosto. This component should be capable of processing the JSON response received from our backend. Notice the `recommendationComponent={<NostoSlot />}` prop passed to `<NostoProvider>` above. 

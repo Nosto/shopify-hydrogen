@@ -1,6 +1,7 @@
 import { NostoSession as NostoComponent } from "@nosto/nosto-react";
 import { sha256 } from "js-sha256";
 import { useMatches, Await, useAsyncValue } from "@remix-run/react";
+import { Suspense } from "react";
 
 //Polyfill the Array.prototype.at() method for all browsers
 if (!Array.prototype.at) {
@@ -19,6 +20,7 @@ if (!Array.prototype.at) {
 }
 
 function AsyncSessionWrapper() {
+
     //Resolve async data:
     const { customer: customerData = {}, cart: shopifyCart, storeDomain } = useAsyncValue() || {};
 
@@ -51,13 +53,15 @@ function AsyncSessionWrapper() {
 
 export default function NostoSession() {
 
-    //Get nostoData promise from root remix loader:
+    //Get nostoSessionData promise from root remix loader:
     const [root] = useMatches();
-    const nostoPromise = root?.data?.nostoData;
+    const nostoPromise = root?.data?.nostoSessionData
 
     return (
-        <Await resolve={nostoPromise}>
-            <AsyncSessionWrapper />
-        </Await>
+        <Suspense>
+            <Await resolve={nostoPromise}>
+                <AsyncSessionWrapper />
+            </Await>
+        </Suspense>
     )
 }
