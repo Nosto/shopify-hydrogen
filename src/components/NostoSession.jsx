@@ -23,7 +23,6 @@ function AsyncSessionWrapper() {
 
     //Resolve async data:
     const { customer: customerData = {}, cart: shopifyCart, storeDomain } = useAsyncValue() || {};
-    console.log('Session async', { customerData, shopifyCart })
 
     //Get customer data to sync with Nosto:
     let customerId = customerData?.id?.split('/').at(-1);

@@ -1,18 +1,7 @@
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react";
 import { NostoSession } from '@nosto/shopify-hydrogen'
-import { Await, useAsyncValue, useMatches } from '@remix-run/react'
+import { useMatches } from '@remix-run/react'
 import { parseGid } from '@shopify/hydrogen'
-
-// function AsyncProviderWrapper({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
-
-
-//   return (
-//     <NostoComponent {...props} shopifyMarkets={shopifyMarkets}>
-//       <NostoSession />
-//       {children}
-//     </NostoComponent>
-//   )
-// }
 
 export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
 
@@ -27,8 +16,6 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     marketId: shopifyMarketsProp?.marketId || marketId,
     language: shopifyMarketsProp?.language || language
   }
-
-  console.log('nosto provider', { shopifyMarkets, currentVariation })
 
   return (
     <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} >
