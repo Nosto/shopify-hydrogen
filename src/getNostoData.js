@@ -1,11 +1,9 @@
 export async function getNostoData({ context: { storefront, session }, cartId }) {
 
-  //Get store domain:
-  const storeDomain = storefront?.getShopifyDomain?.();
-
-  //Get Shopify market from localization:
-  const countryCode = storefront?.i18n?.country;
-  const NOSTO_MARKET_QUERY = `#graphql
+  async function getProviderData() {
+    //Get Shopify market from localization:
+    const countryCode = storefront?.i18n?.country;
+    const NOSTO_MARKET_QUERY = `#graphql
                                 query GetMarketId @inContext(country: ${countryCode}) {
                                   localization {
                                     country {
@@ -17,13 +15,20 @@ export async function getNostoData({ context: { storefront, session }, cartId })
                                   }
                                 }
                               `;
-  const market = countryCode ? await storefront.query(NOSTO_MARKET_QUERY, {
-    cache: storefront.CacheNone()
-  }) : undefined;
+    const market = countryCode ? await storefront.query(NOSTO_MARKET_QUERY, {
+      cache: storefront.CacheNone()
+    }) : undefined;
 
-  //Fetch customer data:
-  const customerAccessToken = await session.get('customerAccessToken');
-  const NOSTO_CUSTOMER_QUERY = `#graphql
+    return market
+  }
+
+  async function getSessionData() {
+    //Get store domain:
+    const storeDomain = storefront?.getShopifyDomain?.();
+
+    //Fetch customer data:
+    const customerAccessToken = await session.get('customerAccessToken');
+    const NOSTO_CUSTOMER_QUERY = `#graphql
                                   query {
                                     customer(customerAccessToken: "${customerAccessToken}") {
                                       firstName
@@ -34,12 +39,12 @@ export async function getNostoData({ context: { storefront, session }, cartId })
                                     }
                                   }
                               `
-  const customer = customerAccessToken ? await storefront.query(NOSTO_CUSTOMER_QUERY, {
-    cache: storefront.CacheNone(),
-  }) : undefined;
+    const customer = customerAccessToken ? await storefront.query(NOSTO_CUSTOMER_QUERY, {
+      cache: storefront.CacheNone(),
+    }) : undefined;
 
-  //Fetch cart data:
-  const NOSTO_CART_QUERY = `#graphql
+    //Fetch cart data:
+    const NOSTO_CART_QUERY = `#graphql
                               query CartQuery($cartId: ID!, $country: CountryCode, $language: LanguageCode)
                                 @inContext(country: $country, language: $language) {
                                   cart(id: $cartId) {
@@ -65,16 +70,17 @@ export async function getNostoData({ context: { storefront, session }, cartId })
                                   }
                                 }
                               `;
-  const { cart } = !cartId ? {} : await storefront.query(NOSTO_CART_QUERY, {
-    variables: {
-      cartId,
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
-    },
-    cache: storefront.CacheNone(),
-  });
+    const { cart } = !cartId ? {} : await storefront.query(NOSTO_CART_QUERY, {
+      variables: {
+        cartId,
+        country: storefront.i18n.country,
+        language: storefront.i18n.language,
+      },
+      cache: storefront.CacheNone(),
+    });
 
-  return { ...customer, cart, storeDomain, market }
+    return { ...customer, cart, storeDomain }
+  }
+
+  return { nostoProviderData: await getProviderData(), nostoSessionData: getSessionData() }
 }
-
-
