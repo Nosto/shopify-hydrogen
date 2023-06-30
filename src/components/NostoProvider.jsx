@@ -17,8 +17,6 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     language: shopifyMarketsProp?.language || language
   }
 
-  console.log('test')
-
   return (
     <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} >
       <NostoSession />
