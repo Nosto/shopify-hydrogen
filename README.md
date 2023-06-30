@@ -57,9 +57,11 @@ yarn add @nosto/shopify-hydrogen
 
 ### Adding Nosto's fetcher function to the root loader
 
-The first step is to import `getNostoData()` and spread it to the returned defer object of the loader function by using the spread operator `...`. 
-This provides server based data within Nosto components. 
-Make sure to pass the context and cartId.
+- Import the function `getNostoData` from `@nosto/shopify-hydrogen` into your root.jsx file
+- Invoke `getNostoData()`, passing an object that contains both `context` and `cartId` as properties
+- Add it to the returned `defer` object of the root loader by using the spread operator `...` and `await`keyword: `...(await getNostoData({ context, cartId }))`
+
+By following these steps, you enable Nosto components to seamlessly receive the required server-based data through the root loader.
 
 ```js
 // app/root.jsx
