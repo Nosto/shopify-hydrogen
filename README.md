@@ -235,6 +235,13 @@ import { NostoPlacement } from "@nosto/shopify-hydrogen";
 ##### :warning: Dynamic placements and Shopify Hydrogen
 Please note that the concept of dynamic placements does not apply to Shopify Hydrogen headless environments, as they can interfere with React's DOM rendering process and adversely affect site navigation. As such, we have disabled Nosto's dynamic placement feature in our React component library for Shopify Hydrogen builds. Instead, all placements should be statically placed where needed with the `NostoPlacement` component described above. While dynamic placements may be a useful feature in other environments, we have found that they are not compatible with the unique architecture of Shopify Hydrogen, and can cause unexpected behavior in your storefront.
 
+##### Optionally passing placement IDs to page type components
+An optional prop called "placements" can be passed for all components in the library. This prop is a string array that accepts placement IDs. When used, it allows Nosto to render only the placements you specify, rather than all placements on the page (which is the default behavior). This can include placements that are 'visible' on the page, like ones in the background such as those on a product detail page or your homepage when your mini-cart is open.
+To use this prop, simply pass the placement IDs you wish to render as an array of strings. For example, if you only want to render placements "frontpage-nosto-1" and "frontpage-nosto-2" you would pass the following prop to the `<NostoHome>` component:
+
+```jsx
+<NostoHome placements={['frontpage-nosto-1', 'frontpage-nosto-2']} />
+```
 
 #### NostoHome
 

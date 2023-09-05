@@ -13,7 +13,7 @@
     "shopify",
     "hydrogen"
   ],
-  "version": "2.1.1",
+  "version": "2.2.1",
   "files": [
     "dist",
     "src"
@@ -24,7 +24,7 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "^0.4.0",
+    "@nosto/nosto-react": "^0.4.1",
     "js-sha256": "^0.2.0"
   },
   "peerDependencies": {

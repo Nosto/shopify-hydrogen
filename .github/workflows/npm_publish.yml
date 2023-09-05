@@ -1,4 +1,4 @@
-name: npm_publish
+name: yarn_publish
 
 on:
   release:
@@ -9,11 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v2
         with:
           node-version: 16.15.0
+          registry-url: https://registry.npmjs.org/
+      - run: npm install -g yarn
       - run: npm init --scope=nosto -y
-      - run: npm install
+      - run: yarn install
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPMJS_TOKEN }}
