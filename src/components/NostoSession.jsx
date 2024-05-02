@@ -52,7 +52,6 @@ function AsyncSessionWrapper() {
 }
 
 export default function NostoSession() {
-
     //Get nostoSessionData promise from root remix loader:
     const [root] = useMatches();
     const nostoPromise = root?.data?.nostoSessionData

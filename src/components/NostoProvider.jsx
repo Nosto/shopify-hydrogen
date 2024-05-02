@@ -1,10 +1,9 @@
-import { NostoProvider as NostoComponent } from "@nosto/nosto-react";
+import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from '@nosto/shopify-hydrogen'
 import { useMatches } from '@remix-run/react'
 import { parseGid } from '@shopify/hydrogen'
 
 export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
-
   //Get nostoData from root remix loader:
   const [root] = useMatches();
   const { language } = root?.data?.selectedLocale || {}
