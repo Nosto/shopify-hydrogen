@@ -11,8 +11,8 @@ export {
     NostoProduct,
     NostoSearch
 } from "@nosto/nosto-react"
-export { NostoProvider } from "./NostoProvider";
-export { NostoSession } from "./NostoSession"
+export { NostoProvider } from "./components/NostoProvider.jsx"
+export { NostoSession } from "./components/NostoSession.jsx"
 
 //Export server fetching function:
 export { getNostoData } from './getNostoData.js'
