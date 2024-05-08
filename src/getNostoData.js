@@ -55,12 +55,14 @@ export async function getNostoData({ context: { storefront, session }, cartId })
                                           merchandise {
                                             ... on ProductVariant {
                                               id
+                                              title
                                               price {
                                                 currencyCode
                                                 amount
                                               }
                                               product {
                                                 id
+                                                title
                                               }
                                             }
                                           }
