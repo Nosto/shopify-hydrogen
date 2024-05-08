@@ -40,6 +40,7 @@ function AsyncSessionWrapper() {
     let nostoCart = items?.map(item => {
         return {
             product_id: item?.merchandise?.product.id.split("/")?.at(-1),
+            name: item?.merchandise?.product.title,
             sku_id: item?.merchandise?.id.split("/")?.at(-1),
             quantity: item?.quantity,
             unit_price: +item?.merchandise?.price?.amount,
