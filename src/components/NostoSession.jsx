@@ -1,5 +1,5 @@
 import { NostoSession as NostoComponent } from "@nosto/nosto-react";
-import { sha256 } from "js-sha256";
+//import { sha256 } from "js-sha256";
 import { useMatches, Await, useAsyncValue } from "@remix-run/react";
 import { Suspense } from "react";
 
@@ -26,7 +26,8 @@ function AsyncSessionWrapper() {
 
     //Get customer data to sync with Nosto:
     let customerId = customerData?.id?.split('/').at(-1);
-    let customer_reference = customerId && storeDomain ? sha256(customerId + storeDomain) : undefined;
+    //let customer_reference = customerId && storeDomain ? sha256(customerId + storeDomain) : undefined;
+    let customer_reference = undefined
     let customer = {
         customer_reference,
         first_name: customerData?.firstName || undefined,
