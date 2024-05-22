@@ -24,7 +24,7 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "https://github.com/Nosto/nosto-react#esm-react-dom",
+    "@nosto/nosto-react": "^0.4.2",
     "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
