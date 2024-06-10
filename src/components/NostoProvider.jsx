@@ -19,9 +19,10 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     language: shopifyMarketsProp?.language || language
   }
 
-  const [scriptUrl, setScriptUrl] = useState(''); // State for the script URL
+  const [scriptUrl, setScriptUrl] = useState('');
+  // State for the script URL, so we can pass it down
 
-  const scriptStatus = useLoadScript(scriptUrl); // Hook to load the script
+  const scriptStatus = useLoadScript(scriptUrl);
   useEffect(() => {
     if (scriptStatus === 'done') {
       console.log("Script loaded!")
@@ -32,7 +33,6 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} setScriptUrl={setScriptUrl} >
       <NostoSession />
       {children}
-      {/*<Script src="https://connect.nosto.com/script/shopify/market/nosto.js?merchant=shopify-11368366139&market=29592453179&locale="/>*/}
     </NostoComponent>
   )
 }

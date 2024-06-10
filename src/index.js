@@ -1,4 +1,3 @@
-
 //Export components:
 export { 
     Nosto404, 
@@ -11,7 +10,7 @@ export {
     NostoProduct,
     NostoSearch
 } from "@nosto/nosto-react"
-export { default as NostoProvider } from "./components/NostoProvider.jsx";
+export { default as NostoProvider } from "./components/NostoProvider.jsx"
 export { default as NostoSession } from "./components/NostoSession.jsx"
 
 //Export server fetching function:
