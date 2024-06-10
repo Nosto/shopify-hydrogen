@@ -1,7 +1,8 @@
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from '@nosto/shopify-hydrogen'
-import { useMatches } from '@remix-run/react'
+import { useMatches, useEffect } from '@remix-run/react'
 import { parseGid, Script } from '@shopify/hydrogen'
+import { useLoadScript } from '@shopify/hydrogen-react'
 
 
 export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
@@ -17,11 +18,20 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     language: shopifyMarketsProp?.language || language
   }
 
+  const [scriptUrl, setScriptUrl] = useState(''); // State for the script URL
+
+  const scriptStatus = useLoadScript(scriptUrl); // Hook to load the script
+  useEffect(() => {
+    if (scriptStatus === 'done') {
+      console.log("Script loaded!")
+    }
+  }, [scriptStatus]);
+
   return (
-    <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} >
+    <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} setScriptUrl={setScriptUrl} >
       <NostoSession />
       {children}
-      <Script src="https://connect.nosto.com/script/shopify/market/nosto.js?merchant=shopify-11368366139&market=29592453179&locale="/>
+      {/*<Script src="https://connect.nosto.com/script/shopify/market/nosto.js?merchant=shopify-11368366139&market=29592453179&locale="/>*/}
     </NostoComponent>
   )
 }
