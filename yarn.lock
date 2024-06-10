@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@nosto/nosto-react@https://github.com/Nosto/nosto-react#esm-react-dom":
-  version "0.4.1"
-  resolved "git+ssh://git@github.com/Nosto/nosto-react.git#9aae55d0c0fabb6a04711b4ac32bad8647275653"
+"@nosto/nosto-react@https://github.com/Nosto/nosto-react#log-debug-lines":
+  version "0.4.3"
+  resolved "https://github.com/Nosto/nosto-react#3ae16842f2df97169b0fe22be08dd21049d5f485"
 
 crypto-es@^2.1.0:
   version "2.1.0"
