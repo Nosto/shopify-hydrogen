@@ -1,6 +1,7 @@
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from '@nosto/shopify-hydrogen'
-import { useMatches, useEffect } from '@remix-run/react'
+import { useMatches } from '@remix-run/react'
+import { useEffect, useState } from 'react'
 import { parseGid, Script } from '@shopify/hydrogen'
 import { useLoadScript } from '@shopify/hydrogen-react'
 
