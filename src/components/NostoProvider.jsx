@@ -1,8 +1,8 @@
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from '@nosto/shopify-hydrogen'
 import { useMatches } from '@remix-run/react'
-import { useEffect, useState } from 'react'
-import { parseGid, Script } from '@shopify/hydrogen'
+import React, { useEffect, useState } from 'react'
+import { parseGid } from '@shopify/hydrogen'
 import { useLoadScript } from '@shopify/hydrogen-react'
 
 
@@ -19,13 +19,16 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     language: shopifyMarketsProp?.language || language
   }
 
-  const [scriptUrl, setScriptUrl] = useState('');
+  const [scriptUrl, setScriptUrl] = useState("");
   // State for the script URL, so we can pass it down
 
-  const scriptStatus = useLoadScript(scriptUrl);
+  /**props for the useLoadScript hook
+   * [src: string, options?: { module?: boolean; in?: "body" | "head"; }]
+  */
+  const scriptStatus = useLoadScript(scriptUrl, { module: true, in: "head" });
   useEffect(() => {
     if (scriptStatus === 'done') {
-      console.log("Script loaded!")
+      console.log("Script loaded!", scriptStatus)
     }
   }, [scriptStatus]);
 
