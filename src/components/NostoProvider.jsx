@@ -3,7 +3,9 @@ import { NostoSession } from '@nosto/shopify-hydrogen'
 import { useMatches, Scripts } from '@remix-run/react'
 import React, { useEffect, useState } from 'react'
 import { parseGid } from '@shopify/hydrogen'
-import { useLoadScript, useNonce, Script } from '@shopify/hydrogen-react'
+import { useLoadScript, Script } from '@shopify/hydrogen-react'
+import {useNonce} from '@shopify/hydrogen';
+
 
 
 export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
