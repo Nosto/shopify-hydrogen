@@ -1,11 +1,10 @@
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from '@nosto/shopify-hydrogen'
-import { useMatches, Scripts } from '@remix-run/react'
+import { useMatches, Scripts, LiveReload } from '@remix-run/react'
 import React, { useEffect, useState } from 'react'
 import { parseGid } from '@shopify/hydrogen'
 import { useLoadScript } from '@shopify/hydrogen-react'
 import {useNonce, Script} from '@shopify/hydrogen';
-
 
 
 export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
@@ -41,6 +40,7 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
       {children}
       <Script src={scriptUrl} />
       <Scripts nonce={nonce} />
+      <LiveReload nonce={nonce} />
     </NostoComponent>
   )
 }
