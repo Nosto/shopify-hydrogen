@@ -7,7 +7,7 @@ import { useLoadScript } from '@shopify/hydrogen-react'
 import {useNonce, Script} from '@shopify/hydrogen';
 
 
-export default function ({ children, shopifyMarkets: shopifyMarketsProp, nonce: nonce, ...props }) {
+export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
   //Get nostoData from root remix loader:
   /*const nonce = useNonce();*///try getting it from parent module
   const [root] = useMatches();
@@ -38,7 +38,6 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, nonce: 
       <NostoSession />
       {children}
       <Script src={scriptUrl} />
-      <Scripts nonce={nonce} />
     </NostoComponent>
   )
 }
