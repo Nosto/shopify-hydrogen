@@ -1,13 +1,14 @@
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from '@nosto/shopify-hydrogen'
-import { useMatches } from '@remix-run/react'
+import { useMatches, Scripts } from '@remix-run/react'
 import React, { useEffect, useState } from 'react'
 import { parseGid } from '@shopify/hydrogen'
-import { useLoadScript } from '@shopify/hydrogen-react'
+import { useLoadScript, useNonce, Script } from '@shopify/hydrogen-react'
 
 
 export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
   //Get nostoData from root remix loader:
+  const nonce = useNonce();
   const [root] = useMatches();
   const { language } = root?.data?.selectedLocale || {}
   const { market } = root?.data?.nostoProviderData?.localization?.country || {}
@@ -36,6 +37,8 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} setScriptUrl={setScriptUrl} >
       <NostoSession />
       {children}
+      <Script src={scriptUrl} />
+      <Scripts nonce={nonce} />
     </NostoComponent>
   )
 }
