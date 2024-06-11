@@ -24,14 +24,14 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, nonce: 
   const [scriptUrl, setScriptUrl] = useState("");
   // State for the script URL, so we can pass it down
 
-  const scriptStatus = useLoadScript(scriptUrl, { module: true, in: "head" });
+  /*const scriptStatus = useLoadScript(scriptUrl, { module: true, in: "head" });
   useEffect(() => {
     if (scriptStatus === 'done') {
       console.log("Script loaded!", scriptStatus)
     } else {
       console.log("Script not loaded yet", scriptStatus)
     }
-  }, [scriptStatus]);
+  }, [scriptStatus]);*/
 
   return (
     <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} setScriptUrl={setScriptUrl} >
