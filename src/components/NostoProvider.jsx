@@ -7,9 +7,9 @@ import { useLoadScript } from '@shopify/hydrogen-react'
 import {useNonce, Script} from '@shopify/hydrogen';
 
 
-export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...props }) {
+export default function ({ children, shopifyMarkets: shopifyMarketsProp, nonce: nonce, ...props }) {
   //Get nostoData from root remix loader:
-  const nonce = useNonce();
+  /*const nonce = useNonce();*///try getting it from parent module
   const [root] = useMatches();
   const { language } = root?.data?.selectedLocale || {}
   const { market } = root?.data?.nostoProviderData?.localization?.country || {}
@@ -24,13 +24,12 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
   const [scriptUrl, setScriptUrl] = useState("");
   // State for the script URL, so we can pass it down
 
-  /**props for the useLoadScript hook
-   * [src: string, options?: { module?: boolean; in?: "body" | "head"; }]
-  */
   const scriptStatus = useLoadScript(scriptUrl, { module: true, in: "head" });
   useEffect(() => {
     if (scriptStatus === 'done') {
       console.log("Script loaded!", scriptStatus)
+    } else {
+      console.log("Script not loaded yet", scriptStatus)
     }
   }, [scriptStatus]);
 
@@ -40,7 +39,6 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
       {children}
       <Script src={scriptUrl} />
       <Scripts nonce={nonce} />
-      <LiveReload nonce={nonce} />
     </NostoComponent>
   )
 }
