@@ -22,7 +22,7 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
   }
 
   const [scriptUrl, setScriptUrl] = useState("");
-  // State for the script URL, so we can pass it down
+  // State for the script URL, so we can paass it down
 
   /*const scriptStatus = useLoadScript(scriptUrl, { module: true, in: "head" });
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} setScriptUrl={setScriptUrl} >
       <NostoSession />
       {children}
-      <Script src={scriptUrl} />
+      {scriptUrl !== ""?<Script src={scriptUrl} />:<> </>}
     </NostoComponent>
   )
 }
