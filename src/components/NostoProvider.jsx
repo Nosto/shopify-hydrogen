@@ -21,7 +21,7 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
     language: shopifyMarketsProp?.language || language
   }
 
-  const [scriptUrl, setScriptUrl] = useState("");
+  /*const [scriptUrl, setScriptUrl] = useState("");*/
   // State for the script URL, so we can paass it down
 
   /*const scriptStatus = useLoadScript(scriptUrl, { module: true, in: "head" });
