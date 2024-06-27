@@ -34,11 +34,11 @@ export default function ({ children, shopifyMarkets: shopifyMarketsProp, ...prop
   }, [scriptStatus]);*/
 
   return (
-    <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} setScriptUrl={setScriptUrl} >
+    <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation} /*setScriptUrl={setScriptUrl}*/ >
       <NostoSession />
       {children}
-      {scriptUrl !== ""?<Script src={scriptUrl} />:<> </>}
-      {/*<Script src={"//connect.nosto.com/script/shopify/market/nosto.js?merchant=shopify-11368366139&market=29592453179&locale="}></Script>*/}
+      {/*{scriptUrl !== ""?<Script src={scriptUrl} />:<> </>}*/}
+      <Script src={"//connect.nosto.com/script/shopify/market/nosto.js?merchant=shopify-11368366139&market=29592453179&locale="}></Script>
     </NostoComponent>
   )
 }
