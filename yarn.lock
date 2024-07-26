@@ -9,5 +9,5 @@
 
 js-sha256@^0.11.0:
   version "0.11.0"
-  resolved "https://npm.nos.to/js-sha256/-/js-sha256-0.11.0.tgz#256a921d9292f7fe98905face82e367abaca9576"
+  resolved "https://npm.nos.to/js-sha256/-/js-sha256-0.11.0.tgz"
   integrity sha512-6xNlKayMZvds9h1Y1VWc0fQHQ82BxTXizWPEtEeGvmOUYpBRy4gbWroHLpzowe6xiQhHpelCQiE7HEdznyBL9Q==
