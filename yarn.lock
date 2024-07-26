@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@nosto/nosto-react@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@nosto/nosto-react/-/nosto-react-0.4.1.tgz#2c497d0df4d0c961ee6166d18cebbf70df46385d"
-  integrity sha512-vNlOCf1IZDX2gNUz4vcGP040Leyazqw6jNSiqY2txiuB/jMnz9f3ruDEPAiY6gjx3uOaItZFsDPoXUbffGCDtg==
+"@nosto/nosto-react@^2.0.0":
+  version "2.0.0"
+  resolved "https://npm.nos.to/@nosto%2fnosto-react/-/nosto-react-2.0.0.tgz#e58c186fcf529f2bb5ddd9697980d8affa98886a"
+  integrity sha512-Zsh/DZc+D141ggDdlvxxCkTnCdQ7WD46hu3avotGJTNS/sdhpyimTCc6TP88CtAYyX7aexDzHCvKD1eBpyyaRg==
 
-js-sha256@^0.2.0:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/js-sha256/-/js-sha256-0.2.3.tgz#6da15baa3dd930be559d4be6473fb4ed859b48e6"
-  integrity sha512-QZgK5gMtVdatXbdzGVcJhmiPwwyRtGDBeIEZ1ZUpao4ev6Hhvgucp0jjqgb9ncgiiNaqvIGX7TW4952aoLkHbA==
+js-sha256@^0.11.0:
+  version "0.11.0"
+  resolved "https://npm.nos.to/js-sha256/-/js-sha256-0.11.0.tgz#256a921d9292f7fe98905face82e367abaca9576"
+  integrity sha512-6xNlKayMZvds9h1Y1VWc0fQHQ82BxTXizWPEtEeGvmOUYpBRy4gbWroHLpzowe6xiQhHpelCQiE7HEdznyBL9Q==
