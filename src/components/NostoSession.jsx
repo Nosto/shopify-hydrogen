@@ -1,7 +1,8 @@
-import { NostoSession as NostoComponent } from "@nosto/nosto-react";
-import { sha256 } from "js-sha256";
-import { useMatches, Await, useAsyncValue } from "@remix-run/react";
-import { Suspense } from "react";
+import {NostoSession as NostoComponent} from "@nosto/nosto-react";
+import crypto from 'crypto-es'
+
+import {Await, useAsyncValue, useMatches} from "@remix-run/react";
+import {Suspense} from "react";
 
 //Polyfill the Array.prototype.at() method for all browsers
 if (!Array.prototype.at) {
@@ -22,11 +23,11 @@ if (!Array.prototype.at) {
 function AsyncSessionWrapper() {
 
     //Resolve async data:
-    const { customer: customerData = {}, cart: shopifyCart, storeDomain } = useAsyncValue() || {};
+    const {customer: customerData = {}, cart: shopifyCart, storeDomain} = useAsyncValue() || {};
 
     //Get customer data to sync with Nosto:
     let customerId = customerData?.id?.split('/').at(-1);
-    let customer_reference = customerId && storeDomain ? sha256(customerId + storeDomain) : undefined;
+    let customer_reference = customerId && storeDomain ? crypto.SHA256(customerId + storeDomain).toString() : undefined;
     let customer = {
         customer_reference,
         first_name: customerData?.firstName || undefined,
@@ -47,9 +48,9 @@ function AsyncSessionWrapper() {
             price_currency_code: item?.merchandise?.price?.currencyCode
         }
     })
-    let cart = nostoCart ? { items: nostoCart } : undefined;
+    let cart = nostoCart ? {items: nostoCart} : undefined;
 
-    return <NostoComponent customer={customer} cart={cart} />
+    return <NostoComponent customer={customer} cart={cart}/>
 }
 
 export default function NostoSession() {
@@ -61,7 +62,7 @@ export default function NostoSession() {
     return (
         <Suspense>
             <Await resolve={nostoPromise}>
-                <AsyncSessionWrapper />
+                <AsyncSessionWrapper/>
             </Await>
         </Suspense>
     )

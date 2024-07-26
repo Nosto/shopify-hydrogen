@@ -7,7 +7,7 @@
   resolved "https://npm.nos.to/@nosto%2fnosto-react/-/nosto-react-2.0.0.tgz#e58c186fcf529f2bb5ddd9697980d8affa98886a"
   integrity sha512-Zsh/DZc+D141ggDdlvxxCkTnCdQ7WD46hu3avotGJTNS/sdhpyimTCc6TP88CtAYyX7aexDzHCvKD1eBpyyaRg==
 
-js-sha256@^0.11.0:
-  version "0.11.0"
-  resolved "https://npm.nos.to/js-sha256/-/js-sha256-0.11.0.tgz"
-  integrity sha512-6xNlKayMZvds9h1Y1VWc0fQHQ82BxTXizWPEtEeGvmOUYpBRy4gbWroHLpzowe6xiQhHpelCQiE7HEdznyBL9Q==
+crypto-es@^2.1.0:
+  version "2.1.0"
+  resolved "https://npm.nos.to/crypto-es/-/crypto-es-2.1.0.tgz#1095f324ffd7dc1ccab8e21d0960e17025da8ce9"
+  integrity sha512-C5Dbuv4QTPGuloy5c5Vv/FZHtmK+lobLAypFfuRaBbwCsk3qbCWWESCH3MUcBsrgXloRNMrzwUAiPg4U6+IaKA==
