@@ -24,7 +24,7 @@ export default function ({children, shopifyMarkets: shopifyMarketsProp, ...props
             <NostoSession/>
             {children}
             <Script
-                src={"//connect.nosto.com/script/shopify/market/nosto.js?merchant=" + props.account + "&market=" + shopifyMarkets.marketId + "&locale=" + shopifyMarkets.language ? shopifyMarkets : ""}></Script>
+                src={"//connect.nosto.com/script/shopify/market/nosto.js?merchant=" + props.account + "&market=" + shopifyMarkets.marketId + "&locale=" + shopifyMarkets.language ? shopifyMarkets.language : ""}></Script>
         </NostoComponent>
     )
 }
