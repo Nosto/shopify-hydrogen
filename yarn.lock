@@ -2,12 +2,278 @@
 # yarn lockfile v1
 
 
-"@nosto/nosto-react@^2.0.0":
+"@google/model-viewer@^1.12.1":
+  version "1.12.1"
+  resolved "https://npm.nos.to/@google%2fmodel-viewer/-/model-viewer-1.12.1.tgz"
+  integrity sha512-GOf/By81rbxSmwWRVxBtlY5b3050msJ+BDWqonPj7M0/I7rNS/vVNjbLxTofbGjZObS3n0ELHj8TZ47UtkZbtg==
+  dependencies:
+    lit "^2.2.3"
+    three "^0.139.2"
+
+"@juggle/resize-observer@^3.3.1":
+  version "3.4.0"
+  resolved "https://npm.nos.to/@juggle%2fresize-observer/-/resize-observer-3.4.0.tgz"
+  integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
+
+"@lit-labs/ssr-dom-shim@^1.0.0", "@lit-labs/ssr-dom-shim@^1.1.0":
+  version "1.2.0"
+  resolved "https://npm.nos.to/@lit-labs%2fssr-dom-shim/-/ssr-dom-shim-1.2.0.tgz"
+  integrity sha512-yWJKmpGE6lUURKAaIltoPIE/wrbY3TEkqQt+X0m+7fQNnAv0keydnYvbiJFP1PnMhizmIWRWOG5KLhYyc/xl+g==
+
+"@lit/reactive-element@^1.3.0", "@lit/reactive-element@^1.6.0":
+  version "1.6.3"
+  resolved "https://npm.nos.to/@lit%2freactive-element/-/reactive-element-1.6.3.tgz"
+  integrity sha512-QuTgnG52Poic7uM1AN5yJ09QMe0O28e10XzSvWDz02TJiiKee4stsiownEIadWm8nYzyDAyT+gKzUoZmiWQtsQ==
+  dependencies:
+    "@lit-labs/ssr-dom-shim" "^1.0.0"
+
+"@nosto/nosto-react@github:Nosto/nosto-react#updated_hydrogen":
   version "2.0.0"
-  resolved "https://npm.nos.to/@nosto%2fnosto-react/-/nosto-react-2.0.0.tgz#e58c186fcf529f2bb5ddd9697980d8affa98886a"
-  integrity sha512-Zsh/DZc+D141ggDdlvxxCkTnCdQ7WD46hu3avotGJTNS/sdhpyimTCc6TP88CtAYyX7aexDzHCvKD1eBpyyaRg==
+  resolved "git+ssh://git@github.com/Nosto/nosto-react.git#3c6b0f4f69781e6c7ea26daa4caf8c3f517238ac"
+
+"@remix-run/react@^2.10.0", "@remix-run/react@^2.10.3":
+  version "2.11.0"
+  resolved "https://npm.nos.to/@remix-run%2freact/-/react-2.11.0.tgz"
+  integrity sha512-XncDiwDAm6NFiUtISBieAJylb0Y9E66XKbFd0PDgYNbJWd7jMmJN3ZFnFggLKLt7KhtR6wepkW83BhmI7I7+aw==
+  dependencies:
+    "@remix-run/router" "1.19.0"
+    "@remix-run/server-runtime" "2.11.0"
+    react-router "6.26.0"
+    react-router-dom "6.26.0"
+    turbo-stream "2.2.0"
+
+"@remix-run/router@1.19.0":
+  version "1.19.0"
+  resolved "https://npm.nos.to/@remix-run%2frouter/-/router-1.19.0.tgz"
+  integrity sha512-zDICCLKEwbVYTS6TjYaWtHXxkdoUvD/QXvyVZjGCsWz5vyH7aFeONlPffPdW+Y/t6KT0MgXb2Mfjun9YpWN1dA==
+
+"@remix-run/server-runtime@^2.10.0", "@remix-run/server-runtime@2.11.0":
+  version "2.11.0"
+  resolved "https://npm.nos.to/@remix-run%2fserver-runtime/-/server-runtime-2.11.0.tgz"
+  integrity sha512-9fU4Nyvplge6dlyTl90qvAq8fiWWZ922xtJUIWAkFpSOGIcIUIdlqUVSpfsYU6l2e6JQcKr8C14LfjgciBUX+A==
+  dependencies:
+    "@remix-run/router" "1.19.0"
+    "@types/cookie" "^0.6.0"
+    "@web3-storage/multipart-parser" "^1.0.0"
+    cookie "^0.6.0"
+    set-cookie-parser "^2.4.8"
+    source-map "^0.7.3"
+    turbo-stream "2.2.0"
+
+"@shopify/hydrogen-react@2024.7.1":
+  version "2024.7.1"
+  resolved "https://npm.nos.to/@shopify%2fhydrogen-react/-/hydrogen-react-2024.7.1.tgz"
+  integrity sha512-CE3n3pxt/RcVdbgr/mrBCoLqApNTsTjGL+yJfq4eAng9PBtWRjKKmUzH6WYgUYR9IH31FSeh2qciM05VWEOFVg==
+  dependencies:
+    "@google/model-viewer" "^1.12.1"
+    "@xstate/fsm" "^2.0.0"
+    "@xstate/react" "^3.2.1"
+    graphql "^16.6.0"
+    type-fest "^4.5.0"
+    worktop "^0.7.3"
+
+"@shopify/hydrogen@^2024.7.2":
+  version "2024.7.2"
+  resolved "https://npm.nos.to/@shopify%2fhydrogen/-/hydrogen-2024.7.2.tgz"
+  integrity sha512-Uly8NkOiSExWnJHX12U5jk/JSuCASwEikNOT/5NqLfHldb05/J83r3O3TACIzyXquIWqJbk910YpzOe7D/54lQ==
+  dependencies:
+    "@shopify/hydrogen-react" "2024.7.1"
+    content-security-policy-builder "^2.2.0"
+    source-map-support "^0.5.21"
+    type-fest "^4.5.0"
+    use-resize-observer "^9.1.0"
+    worktop "^0.7.3"
+
+"@types/cookie@^0.6.0":
+  version "0.6.0"
+  resolved "https://npm.nos.to/@types%2fcookie/-/cookie-0.6.0.tgz"
+  integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
+
+"@types/trusted-types@^2.0.2":
+  version "2.0.7"
+  resolved "https://npm.nos.to/@types%2ftrusted-types/-/trusted-types-2.0.7.tgz"
+  integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
+"@web3-storage/multipart-parser@^1.0.0":
+  version "1.0.0"
+  resolved "https://npm.nos.to/@web3-storage%2fmultipart-parser/-/multipart-parser-1.0.0.tgz"
+  integrity sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==
+
+"@xstate/fsm@^2.0.0":
+  version "2.1.0"
+  resolved "https://npm.nos.to/@xstate%2ffsm/-/fsm-2.1.0.tgz"
+  integrity sha512-oJlc0iD0qZvAM7If/KlyJyqUt7wVI8ocpsnlWzAPl97evguPbd+oJbRM9R4A1vYJffYH96+Bx44nLDE6qS8jQg==
+
+"@xstate/react@^3.2.1":
+  version "3.2.2"
+  resolved "https://npm.nos.to/@xstate%2freact/-/react-3.2.2.tgz"
+  integrity sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==
+  dependencies:
+    use-isomorphic-layout-effect "^1.1.2"
+    use-sync-external-store "^1.0.0"
+
+buffer-from@^1.0.0:
+  version "1.1.2"
+  resolved "https://npm.nos.to/buffer-from/-/buffer-from-1.1.2.tgz"
+  integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
+
+content-security-policy-builder@^2.2.0:
+  version "2.2.0"
+  resolved "https://npm.nos.to/content-security-policy-builder/-/content-security-policy-builder-2.2.0.tgz"
+  integrity sha512-IZhbHYV3O6xBpbvuMJz0FP8s79aTz7ymq4JQVC8TMzTdRToxrupCY1C/GlzC6GaDfKvD7AceewH+LsTV5OO/Kg==
+
+cookie@^0.6.0:
+  version "0.6.0"
+  resolved "https://npm.nos.to/cookie/-/cookie-0.6.0.tgz"
+  integrity sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==
 
 crypto-es@^2.1.0:
   version "2.1.0"
-  resolved "https://npm.nos.to/crypto-es/-/crypto-es-2.1.0.tgz#1095f324ffd7dc1ccab8e21d0960e17025da8ce9"
+  resolved "https://npm.nos.to/crypto-es/-/crypto-es-2.1.0.tgz"
   integrity sha512-C5Dbuv4QTPGuloy5c5Vv/FZHtmK+lobLAypFfuRaBbwCsk3qbCWWESCH3MUcBsrgXloRNMrzwUAiPg4U6+IaKA==
+
+graphql@^16.6.0:
+  version "16.9.0"
+  resolved "https://npm.nos.to/graphql/-/graphql-16.9.0.tgz"
+  integrity sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==
+
+"js-tokens@^3.0.0 || ^4.0.0":
+  version "4.0.0"
+  resolved "https://npm.nos.to/js-tokens/-/js-tokens-4.0.0.tgz"
+  integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
+
+lit-element@^3.3.0:
+  version "3.3.3"
+  resolved "https://npm.nos.to/lit-element/-/lit-element-3.3.3.tgz"
+  integrity sha512-XbeRxmTHubXENkV4h8RIPyr8lXc+Ff28rkcQzw3G6up2xg5E8Zu1IgOWIwBLEQsu3cOVFqdYwiVi0hv0SlpqUA==
+  dependencies:
+    "@lit-labs/ssr-dom-shim" "^1.1.0"
+    "@lit/reactive-element" "^1.3.0"
+    lit-html "^2.8.0"
+
+lit-html@^2.8.0:
+  version "2.8.0"
+  resolved "https://npm.nos.to/lit-html/-/lit-html-2.8.0.tgz"
+  integrity sha512-o9t+MQM3P4y7M7yNzqAyjp7z+mQGa4NS4CxiyLqFPyFWyc4O+nodLrkrxSaCTrla6M5YOLaT3RpbbqjszB5g3Q==
+  dependencies:
+    "@types/trusted-types" "^2.0.2"
+
+lit@^2.2.3:
+  version "2.8.0"
+  resolved "https://npm.nos.to/lit/-/lit-2.8.0.tgz"
+  integrity sha512-4Sc3OFX9QHOJaHbmTMk28SYgVxLN3ePDjg7hofEft2zWlehFL3LiAuapWc4U/kYwMYJSh2hTCPZ6/LIC7ii0MA==
+  dependencies:
+    "@lit/reactive-element" "^1.6.0"
+    lit-element "^3.3.0"
+    lit-html "^2.8.0"
+
+loose-envify@^1.1.0:
+  version "1.4.0"
+  resolved "https://npm.nos.to/loose-envify/-/loose-envify-1.4.0.tgz"
+  integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
+  dependencies:
+    js-tokens "^3.0.0 || ^4.0.0"
+
+react-dom@^18.0.0, react-dom@>=16.8, "react-dom@16.8.0 - 18":
+  version "18.3.1"
+  resolved "https://npm.nos.to/react-dom/-/react-dom-18.3.1.tgz"
+  integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
+  dependencies:
+    loose-envify "^1.1.0"
+    scheduler "^0.23.2"
+
+react-router-dom@6.26.0:
+  version "6.26.0"
+  resolved "https://npm.nos.to/react-router-dom/-/react-router-dom-6.26.0.tgz"
+  integrity sha512-RRGUIiDtLrkX3uYcFiCIxKFWMcWQGMojpYZfcstc63A1+sSnVgILGIm9gNUA6na3Fm1QuPGSBQH2EMbAZOnMsQ==
+  dependencies:
+    "@remix-run/router" "1.19.0"
+    react-router "6.26.0"
+
+react-router@6.26.0:
+  version "6.26.0"
+  resolved "https://npm.nos.to/react-router/-/react-router-6.26.0.tgz"
+  integrity sha512-wVQq0/iFYd3iZ9H2l3N3k4PL8EEHcb0XlU2Na8nEwmiXgIUElEH6gaJDtUQxJ+JFzmIXaQjfdpcGWaM6IoQGxg==
+  dependencies:
+    "@remix-run/router" "1.19.0"
+
+"react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, react@^18.3.1, react@>=16.8, "react@16.8.0 - 18":
+  version "18.3.1"
+  resolved "https://npm.nos.to/react/-/react-18.3.1.tgz"
+  integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
+  dependencies:
+    loose-envify "^1.1.0"
+
+regexparam@^2.0.0:
+  version "2.0.2"
+  resolved "https://npm.nos.to/regexparam/-/regexparam-2.0.2.tgz"
+  integrity sha512-A1PeDEYMrkLrfyOwv2jwihXbo9qxdGD3atBYQA9JJgreAx8/7rC6IUkWOw2NQlOxLp2wL0ifQbh1HuidDfYA6w==
+
+scheduler@^0.23.2:
+  version "0.23.2"
+  resolved "https://npm.nos.to/scheduler/-/scheduler-0.23.2.tgz"
+  integrity sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==
+  dependencies:
+    loose-envify "^1.1.0"
+
+set-cookie-parser@^2.4.8:
+  version "2.7.0"
+  resolved "https://npm.nos.to/set-cookie-parser/-/set-cookie-parser-2.7.0.tgz"
+  integrity sha512-lXLOiqpkUumhRdFF3k1osNXCy9akgx/dyPZ5p8qAg9seJzXr5ZrlqZuWIMuY6ejOsVLE6flJ5/h3lsn57fQ/PQ==
+
+source-map-support@^0.5.21:
+  version "0.5.21"
+  resolved "https://npm.nos.to/source-map-support/-/source-map-support-0.5.21.tgz"
+  integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
+source-map@^0.6.0:
+  version "0.6.1"
+  resolved "https://npm.nos.to/source-map/-/source-map-0.6.1.tgz"
+  integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+
+source-map@^0.7.3:
+  version "0.7.4"
+  resolved "https://npm.nos.to/source-map/-/source-map-0.7.4.tgz"
+  integrity sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==
+
+three@^0.139.2:
+  version "0.139.2"
+  resolved "https://npm.nos.to/three/-/three-0.139.2.tgz"
+  integrity sha512-gV7q7QY8rogu7HLFZR9cWnOQAUedUhu2WXAnpr2kdXZP9YDKsG/0ychwQvWkZN5PlNw9mv5MoCTin6zNTXoONg==
+
+turbo-stream@2.2.0:
+  version "2.2.0"
+  resolved "https://npm.nos.to/turbo-stream/-/turbo-stream-2.2.0.tgz"
+  integrity sha512-FKFg7A0To1VU4CH9YmSMON5QphK0BXjSoiC7D9yMh+mEEbXLUP9qJ4hEt1qcjKtzncs1OpcnjZO8NgrlVbZH+g==
+
+type-fest@^4.5.0:
+  version "4.23.0"
+  resolved "https://npm.nos.to/type-fest/-/type-fest-4.23.0.tgz"
+  integrity sha512-ZiBujro2ohr5+Z/hZWHESLz3g08BBdrdLMieYFULJO+tWc437sn8kQsWLJoZErY8alNhxre9K4p3GURAG11n+w==
+
+use-isomorphic-layout-effect@^1.1.2:
+  version "1.1.2"
+  resolved "https://npm.nos.to/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.1.2.tgz"
+  integrity sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==
+
+use-resize-observer@^9.1.0:
+  version "9.1.0"
+  resolved "https://npm.nos.to/use-resize-observer/-/use-resize-observer-9.1.0.tgz"
+  integrity sha512-R25VqO9Wb3asSD4eqtcxk8sJalvIOYBqS8MNZlpDSQ4l4xMQxC/J7Id9HoTqPq8FwULIn0PVW+OAqF2dyYbjow==
+  dependencies:
+    "@juggle/resize-observer" "^3.3.1"
+
+use-sync-external-store@^1.0.0:
+  version "1.2.2"
+  resolved "https://npm.nos.to/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz"
+  integrity sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==
+
+worktop@^0.7.3:
+  version "0.7.3"
+  resolved "https://npm.nos.to/worktop/-/worktop-0.7.3.tgz"
+  integrity sha512-WBHP1hk8pLP7ahAw13fugDWcO0SUAOiCD6DHT/bfLWoCIA/PL9u7GKdudT2nGZ8EGR1APbGCAI6ZzKG1+X+PnQ==
+  dependencies:
+    regexparam "^2.0.0"
