@@ -17,15 +17,18 @@ export default function ({children, shopifyMarkets: shopifyMarketsProp, ...props
         language: shopifyMarketsProp?.language || language
     }
 
-    console.log("Im here")
+    const scriptUrl = "//connect.nosto.com/script/shopify/market/nosto.js?merchant=" + props.account + "&market=" + shopifyMarkets.marketId + "&locale=" + shopifyMarkets.language ? shopifyMarkets.language : "";
+    console.log(scriptUrl)
 
     return (
-        <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation}
-                        loadScript={false}>
-            <NostoSession/>
-            {children}
+        <>
             <Script
-                src={"//connect.nosto.com/script/shopify/market/nosto.js?merchant=" + props.account + "&market=" + shopifyMarkets.marketId + "&locale=" + shopifyMarkets.language ? shopifyMarkets.language : ""}></Script>
-        </NostoComponent>
+                src={scriptUrl}></Script>
+            <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation}
+                            loadScript={false}>
+                <NostoSession/>
+                {children}
+            </NostoComponent>
+        </>
     )
 }
