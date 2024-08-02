@@ -29,7 +29,7 @@
 
 "@nosto/nosto-react@github:Nosto/nosto-react#updated_hydrogen":
   version "2.0.0"
-  resolved "git+ssh://git@github.com/Nosto/nosto-react.git#3c6b0f4f69781e6c7ea26daa4caf8c3f517238ac"
+  resolved "git+ssh://git@github.com/Nosto/nosto-react.git#937f48ae8f4edd143903995c2142e1b70aefeda9"
 
 "@remix-run/react@^2.10.0", "@remix-run/react@^2.10.3":
   version "2.11.0"
