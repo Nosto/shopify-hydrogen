@@ -20,7 +20,8 @@ export default function ({children, shopifyMarkets: shopifyMarketsProp, ...props
     console.log("Im here")
 
     return (
-        <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation}>
+        <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation}
+                        loadScript={false}>
             <NostoSession/>
             {children}
             <Script
