@@ -24,12 +24,11 @@ export default function ({children, shopifyMarkets: shopifyMarketsProp, ...props
 
     return (
         <>
-            <Script
-                src={scriptUrl}></Script>
             <NostoComponent {...props} shopifyMarkets={shopifyMarkets} currentVariation={currentVariation}
                             loadScript={false}>
                 <NostoSession/>
                 {children}
+                <Script src={scriptUrl}></Script>
             </NostoComponent>
         </>
     )
