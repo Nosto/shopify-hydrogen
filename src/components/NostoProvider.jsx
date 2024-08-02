@@ -19,7 +19,7 @@ export default function ({children, shopifyMarkets: shopifyMarketsProp, ...props
 
     const scriptUrl = "//connect.nosto.com/script/shopify/market/nosto.js?merchant=" + props.account + "&market=" + (shopifyMarkets?.marketId ? shopifyMarkets?.marketId : "") + "&locale=" + (shopifyMarkets?.language ? shopifyMarkets.language : "");
     console.log("acc is:" + props.account)
-    console.log("market is:" + shopifyMarkets)
+    console.log("market is:" + JSON.stringify(shopifyMarkets))
     console.log("script is:" + scriptUrl)
 
     return (
