@@ -60,10 +60,8 @@ export default function NostoSession() {
     const nostoPromise = root?.data?.nostoSessionData
 
     return (
-        <Suspense>
-            <Await resolve={nostoPromise}>
-                <AsyncSessionWrapper/>
-            </Await>
-        </Suspense>
+        <Await resolve={nostoPromise}>
+            <AsyncSessionWrapper/>
+        </Await>
     )
 }
