@@ -24,7 +24,7 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "github:Nosto/nosto-react#updated_hydrogen",
+    "@nosto/nosto-react": "^2.1.0",
     "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
