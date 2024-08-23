@@ -41,11 +41,12 @@ export default function ({
                 {...props}
                 shopifyMarkets={shopifyMarkets}
                 currentVariation={currentVariation}
+                loadScript={false}
                 // scriptLoader={scriptLoader}
             >
                 <NostoSession/>
                 {children}
-                <Script src={scriptUrl}></Script>
+                <Script nonce={nonce} src={scriptUrl}></Script>
             </NostoComponent>
         </>
     )
