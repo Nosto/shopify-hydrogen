@@ -27,7 +27,13 @@ export default function ({
         marketId: shopifyMarketsProp?.marketId || marketId,
         language: shopifyMarketsProp?.language || language,
     }
-
+    const scriptUrl =
+        "//connect.nosto.com/script/shopify/market/nosto.js?merchant=" +
+        props.account +
+        "&market=" +
+        (shopifyMarkets?.marketId ? shopifyMarkets?.marketId : "") +
+        "&locale=" +
+        (shopifyMarkets?.language ? shopifyMarkets.language : "")
 
     return (
         <>
@@ -39,6 +45,7 @@ export default function ({
             >
                 <NostoSession/>
                 {children}
+                <Script src={scriptUrl}></Script>
             </NostoComponent>
         </>
     )
