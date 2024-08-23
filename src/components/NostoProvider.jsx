@@ -1,7 +1,7 @@
 import {NostoProvider as NostoComponent} from "@nosto/nosto-react"
 import {NostoSession} from "@nosto/shopify-hydrogen"
 import {useMatches} from "@remix-run/react"
-import {parseGid, Script, useNonce} from "@shopify/hydrogen"
+import {parseGid, useNonce} from "@shopify/hydrogen"
 import createScriptLoader from "../createScriptLoader.js";
 
 export default function ({
@@ -27,13 +27,7 @@ export default function ({
         marketId: shopifyMarketsProp?.marketId || marketId,
         language: shopifyMarketsProp?.language || language,
     }
-    const scriptUrl =
-        "//connect.nosto.com/script/shopify/market/nosto.js?merchant=" +
-        props.account +
-        "&market=" +
-        (shopifyMarkets?.marketId ? shopifyMarkets?.marketId : "") +
-        "&locale=" +
-        (shopifyMarkets?.language ? shopifyMarkets.language : "")
+
 
     return (
         <>
@@ -41,12 +35,10 @@ export default function ({
                 {...props}
                 shopifyMarkets={shopifyMarkets}
                 currentVariation={currentVariation}
-                loadScript={false}
-                // scriptLoader={scriptLoader}
+                scriptLoader={scriptLoader}
             >
                 <NostoSession/>
                 {children}
-                <Script nonce={nonce} src={scriptUrl}></Script>
             </NostoComponent>
         </>
     )
