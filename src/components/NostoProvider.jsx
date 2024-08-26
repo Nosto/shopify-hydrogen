@@ -42,6 +42,7 @@ export default function ({
                 shopifyMarkets={shopifyMarkets}
                 currentVariation={currentVariation}
                 scriptLoader={scriptLoader}
+                loadScript={false}
             >
                 <NostoSession/>
                 {children}
