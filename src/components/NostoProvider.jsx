@@ -40,7 +40,7 @@ export default function ({
                 {...props}
                 shopifyMarkets={shopifyMarkets}
                 currentVariation={currentVariation}
-                scriptLoader={scriptLoader}
+                // scriptLoader={scriptLoader}
                 loadScript={false}
             >
                 <NostoSession/>
