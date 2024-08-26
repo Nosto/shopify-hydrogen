@@ -1,7 +1,7 @@
 import {NostoProvider as NostoComponent} from "@nosto/nosto-react"
 import {NostoSession} from "@nosto/shopify-hydrogen"
 import {useMatches} from "@remix-run/react"
-import {parseGid} from "@shopify/hydrogen"
+import {parseGid, Script} from "@shopify/hydrogen"
 import createScriptLoader from "../createScriptLoader.js";
 
 export default function ({
@@ -45,6 +45,7 @@ export default function ({
             >
                 <NostoSession/>
                 {children}
+                <Script src={scriptUrl}></Script>
             </NostoComponent>
         </>
     )
