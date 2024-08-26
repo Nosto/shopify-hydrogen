@@ -2,7 +2,6 @@ import {NostoProvider as NostoComponent} from "@nosto/nosto-react"
 import {NostoSession} from "@nosto/shopify-hydrogen"
 import {useMatches} from "@remix-run/react"
 import {parseGid, Script} from "@shopify/hydrogen"
-import createScriptLoader from "../createScriptLoader.js";
 
 export default function ({
                              children,
@@ -17,7 +16,7 @@ export default function ({
     // useNonce() hook returns CSP nonce. Used to add a nonce to Nosto script via scriptLoader
     // https://shopify.dev/docs/api/hydrogen/2024-07/hooks/usenonce
     // const nonce = useNonce()
-    const scriptLoader = createScriptLoader(props.nonce)
+    // const scriptLoader = createScriptLoader(props.nonce)
 
     const currentVariation =
         props?.currentVariation || root?.data?.selectedLocale?.currency
