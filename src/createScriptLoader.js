@@ -16,11 +16,11 @@ export default function (nonce) {
             script.onload = () => resolve()
             script.onerror = () => reject()
             Object.entries(options?.attributes ?? {}).forEach(([k, v]) => script.setAttribute(k, v))
-            // if (options?.position === "head") {
-            //   document.head.appendChild(script)
-            // } else {
-            //   document.body.appendChild(script)
-            // }
+            if (options?.position === "head") {
+                document.head.appendChild(script)
+            } else {
+                document.body.appendChild(script)
+            }
         })
     }
 }
