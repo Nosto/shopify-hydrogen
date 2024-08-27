@@ -12,7 +12,7 @@ export default function (nonce) {
             script.type = "text/javascript"
             script.src = scriptSrc
             script.async = true
-            script.nonce = nonce
+            script.setAttribute("nonce", nonce)
             script.onload = () => resolve()
             script.onerror = () => reject()
             Object.entries(options?.attributes ?? {}).forEach(([k, v]) => script.setAttribute(k, v))
