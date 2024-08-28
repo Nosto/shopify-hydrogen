@@ -43,7 +43,7 @@ export default function ({
                 currentVariation={currentVariation}
                 scriptLoader={scriptLoader}
             >
-            <NostoSession/>
+                <NostoSession/>
                 {children}
             </NostoComponent>
         </>
