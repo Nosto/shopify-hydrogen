@@ -4,13 +4,13 @@ export {
     Nosto404,
     NostoCategory,
     NostoCheckout,
-    NostoHome,
     NostoOrder,
     NostoOther,
     NostoPlacement,
     NostoProduct,
     NostoSearch
 } from "@nosto/nosto-react"
+export { default as NostoHome } from "./components/NostoHome.jsx";
 export { default as NostoProvider } from "./components/NostoProvider.jsx";
 export { default as NostoSession } from "./components/NostoSession.jsx"
 
