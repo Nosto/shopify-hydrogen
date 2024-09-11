@@ -87,8 +87,8 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - The NostoProvider component is **required** and provides the Nosto functionality.
 - It must wrap all other Nosto components.
 - Pass your Nosto merchant ID via the `account` prop.
-- Pass Shopify Hydrogen nonce as a nonce prop.
-- Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
+- Pass Shopify Hydrogen nonce as a nonce prop. This is used to add your stores content security policy nonce to a Nosto script.
+- Imports the Nosto client script into the window environment. This is used to control all of Nosto functionality.
 - Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
 - The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself. 
 
