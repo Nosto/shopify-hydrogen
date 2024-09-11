@@ -24,7 +24,7 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "^2.2.1",
+    "@nosto/nosto-react": "^2.2.2",
     "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
