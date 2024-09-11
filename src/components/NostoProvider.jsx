@@ -1,7 +1,7 @@
-import {NostoProvider as NostoComponent} from "@nosto/nosto-react"
-import {NostoSession} from "@nosto/shopify-hydrogen"
-import {useMatches} from "@remix-run/react"
-import {parseGid} from "@shopify/hydrogen"
+import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
+import { NostoSession } from "@nosto/shopify-hydrogen"
+import { useMatches } from "@remix-run/react"
+import { parseGid } from "@shopify/hydrogen"
 import createScriptLoader from "../createScriptLoader.js";
 
 export default function ({
@@ -9,19 +9,15 @@ export default function ({
                              shopifyMarkets: shopifyMarketsProp,
                              ...props
                          }) {
-    //Get nostoData from root remix loader:
     const [root] = useMatches()
-    const {language} = root?.data?.selectedLocale || {}
-    const {market} = root?.data?.nostoProviderData?.localization?.country || {}
+    const { language } = root?.data?.selectedLocale || {}
+    const { market } = root?.data?.nostoProviderData?.localization?.country || {}
 
-    // useNonce() hook returns CSP nonce. Used to add a nonce to Nosto script via scriptLoader
-    // https://shopify.dev/docs/api/hydrogen/2024-07/hooks/usenonce
-    // const nonce = useNonce()
     const scriptLoader = createScriptLoader(props.nonce)
 
     const currentVariation =
         props?.currentVariation || root?.data?.selectedLocale?.currency
-    const {id: marketId} = parseGid(market?.id)
+    const { id: marketId } = parseGid(market?.id)
 
     const shopifyMarkets = {
         marketId: shopifyMarketsProp?.marketId || marketId,
