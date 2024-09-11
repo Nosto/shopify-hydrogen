@@ -87,6 +87,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - The NostoProvider component is **required** and provides the Nosto functionality.
 - It must wrap all other Nosto components.
 - Pass your Nosto merchant ID via the `account` prop.
+- Pass Shopify Hydrogen nonce as a nonce prop.
 - Imports the Nosto client script into the window environment. This is used to controll all of Nosto functionality.
 - Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
 - The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself. 
@@ -97,14 +98,13 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
 export default function App() {
-
+  const nonce = useNonce();
   const data = useLoaderData();
-  const locale = data.selectedLocale ?? DEFAULT_LOCALE;
-
+  
   return (
       ...
       <body>
-        <NostoProvider account="shopify-11368366139" recommendationComponent={<NostoSlot />}>
+        <NostoProvider account="shopify-11368366139" recommendationComponent={<NostoSlot />} nonce={nonce}>
           <Layout>
             <Outlet/>
           </Layout>
@@ -118,7 +118,6 @@ export default function App() {
 export function ErrorBoundary() {
 
   const [root] = useMatches();
-  const locale = root?.data?.selectedLocale ?? DEFAULT_LOCALE;
 
   return (
       ...
@@ -141,13 +140,13 @@ export function ErrorBoundary() {
 
 ```jsx
 // Enable with automatic market and language detection:
-<NostoProvider shopifyMarkets={true} account="shopify-11368366139" />
+<NostoProvider shopifyMarkets={true} account="shopify-11368366139" nonce={nonce}/>
 
 // Manually set only the language of the market:
-<NostoProvider shopifyMarkets={{ language: "EN" }} account="shopify-11368366139" />
+<NostoProvider shopifyMarkets={{ language: "EN" }} account="shopify-11368366139" nonce={nonce}/>
 
 // Manually set both the language and ID of the market:
-<NostoProvider shopifyMarkets={{ language: "EN", marketId: '123456789' }} account="shopify-11368366139" />
+<NostoProvider shopifyMarkets={{ language: "EN", marketId: '123456789' }} account="shopify-11368366139" nonce={nonce}/>
 
 ```
 
