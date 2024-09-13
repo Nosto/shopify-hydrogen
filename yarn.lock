@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@nosto/nosto-react@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@nosto/nosto-react/-/nosto-react-0.4.1.tgz#2c497d0df4d0c961ee6166d18cebbf70df46385d"
-  integrity sha512-vNlOCf1IZDX2gNUz4vcGP040Leyazqw6jNSiqY2txiuB/jMnz9f3ruDEPAiY6gjx3uOaItZFsDPoXUbffGCDtg==
+"@nosto/nosto-react@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@nosto/nosto-react/-/nosto-react-2.2.2.tgz#bd70dba325abc6126b9b7bc4ac79b6aec6e25d1f"
+  integrity sha512-QQ8Lmrgz7iEKPne6r+GejIBQGx3IdY/95gRtPCvIIwWUa304KSCg0fgM0bHADfminTnUYmU5OmKon/SjIEpgiQ==
 
-js-sha256@^0.2.0:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/js-sha256/-/js-sha256-0.2.3.tgz#6da15baa3dd930be559d4be6473fb4ed859b48e6"
-  integrity sha512-QZgK5gMtVdatXbdzGVcJhmiPwwyRtGDBeIEZ1ZUpao4ev6Hhvgucp0jjqgb9ncgiiNaqvIGX7TW4952aoLkHbA==
+crypto-es@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/crypto-es/-/crypto-es-2.1.0.tgz#1095f324ffd7dc1ccab8e21d0960e17025da8ce9"
+  integrity sha512-C5Dbuv4QTPGuloy5c5Vv/FZHtmK+lobLAypFfuRaBbwCsk3qbCWWESCH3MUcBsrgXloRNMrzwUAiPg4U6+IaKA==

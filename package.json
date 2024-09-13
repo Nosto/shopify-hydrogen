@@ -13,7 +13,7 @@
     "shopify",
     "hydrogen"
   ],
-  "version": "2.2.3",
+  "version": "2.2.4",
   "files": [
     "dist",
     "src"
@@ -24,12 +24,12 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "^0.4.1",
-    "js-sha256": "^0.2.0"
+    "@nosto/nosto-react": "^2.2.2",
+    "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
-    "@remix-run/react": "^1.19.1",
-    "@shopify/hydrogen": "^2023.4.5"
+    "@remix-run/react": "^2.10.3",
+    "@shopify/hydrogen": "^2024.7.4"
   },
   "bugs": {
     "url": "https://github.com/Nosto/shopify-hydrogen/issues",
