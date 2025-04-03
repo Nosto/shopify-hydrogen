@@ -24,11 +24,11 @@
     ".": "./src/index.js"
   },
   "dependencies": {
-    "@nosto/nosto-react": "^2.2.0",
+    "@nosto/nosto-react": "^2.7.0",
     "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
-    "@remix-run/react": "^2.10.3",
+    "@remix-run/react": "^2.15.2",
     "@shopify/hydrogen": "^2024.7.4"
   },
   "bugs": {
