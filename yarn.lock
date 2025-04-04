@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@nosto/nosto-react@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@nosto/nosto-react/-/nosto-react-2.2.2.tgz#bd70dba325abc6126b9b7bc4ac79b6aec6e25d1f"
-  integrity sha512-QQ8Lmrgz7iEKPne6r+GejIBQGx3IdY/95gRtPCvIIwWUa304KSCg0fgM0bHADfminTnUYmU5OmKon/SjIEpgiQ==
+"@nosto/nosto-react@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@nosto/nosto-react/-/nosto-react-2.7.0.tgz#8e88e4bb5ec809b1f0f7a702bbbf5926721b295b"
+  integrity sha512-6QBwM9zf6ej+x5s/xR49rzs8C4GoiNXQlKWeoDRp4HCYKUaSNe1tRoChiQoeZVHwSRluUF/KeLuP+GlSpX/IyQ==
 
 crypto-es@^2.1.0:
   version "2.1.0"
