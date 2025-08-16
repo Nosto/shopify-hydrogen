@@ -1,9 +1,4 @@
-import { useNostoSearch } from "@nosto/nosto-react"
-
-interface NostoSearchProps {
-  query: string
-  placements?: string[]
-}
+import { useNostoSearch, NostoSearchProps } from "@nosto/nosto-react"
 
 export default function NostoSearch(props: NostoSearchProps) {
   useNostoSearch(props)    

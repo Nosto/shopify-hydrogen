@@ -1,9 +1,4 @@
-import { useNostoCategory } from "@nosto/nosto-react"
-
-interface NostoCategoryProps {
-  category: string
-  placements?: string[]
-}
+import { useNostoCategory, NostoCategoryProps } from "@nosto/nosto-react"
 
 export default function NostoCategory(props: NostoCategoryProps) {
   useNostoCategory(props)    

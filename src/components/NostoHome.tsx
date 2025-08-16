@@ -1,8 +1,4 @@
-import { useNostoHome } from "@nosto/nosto-react"
-
-interface NostoHomeProps {
-  placements?: string[]
-}
+import { useNostoHome, NostoHomeProps } from "@nosto/nosto-react"
 
 export default function NostoHome(props: NostoHomeProps) {
   useNostoHome(props)    

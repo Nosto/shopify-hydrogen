@@ -1,8 +1,4 @@
-import { useNostoOther } from "@nosto/nosto-react"
-
-interface NostoOtherProps {
-  placements?: string[]
-}
+import { useNostoOther, NostoOtherProps } from "@nosto/nosto-react"
 
 export default function NostoOther(props: NostoOtherProps) {
   useNostoOther(props)    

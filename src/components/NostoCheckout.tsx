@@ -1,8 +1,4 @@
-import { useNostoCheckout } from "@nosto/nosto-react"
-
-interface NostoCheckoutProps {
-  placements?: string[]
-}
+import { useNostoCheckout, NostoCheckoutProps } from "@nosto/nosto-react"
 
 export default function NostoCheckout(props: NostoCheckoutProps) {
   useNostoCheckout(props)    

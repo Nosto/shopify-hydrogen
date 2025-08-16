@@ -2,15 +2,57 @@
 declare module "@nosto/nosto-react" {
   import { ReactNode, ComponentType } from "react"
 
+  // Props interfaces
+  export interface Nosto404Props {
+    placements?: string[]
+  }
+
+  export interface NostoCategoryProps {
+    category: string
+    placements?: string[]
+  }
+
+  export interface NostoCheckoutProps {
+    placements?: string[]
+  }
+
+  export interface NostoHomeProps {
+    placements?: string[]
+  }
+
+  export interface NostoOrderProps {
+    order: any
+    placements?: string[]
+  }
+
+  export interface NostoOtherProps {
+    placements?: string[]
+  }
+
+  export interface NostoProductProps {
+    product: string
+    tagging: {
+      selectedVariant?: {
+        sku?: string
+      }
+    }
+    placements?: string[]
+  }
+
+  export interface NostoSearchProps {
+    query: string
+    placements?: string[]
+  }
+
   // Hook types
-  export function useNosto404(props?: any): void
-  export function useNostoCategory(props: { category: string; placements?: string[] }): void
-  export function useNostoCheckout(props?: { placements?: string[] }): void
-  export function useNostoHome(props?: { placements?: string[] }): void
-  export function useNostoOrder(props: { order: any; placements?: string[] }): void
-  export function useNostoOther(props?: { placements?: string[] }): void
-  export function useNostoProduct(props: { product: any; placements?: string[]; tagging?: any }): void
-  export function useNostoSearch(props: { query: string; placements?: string[] }): void
+  export function useNosto404(props?: Nosto404Props): void
+  export function useNostoCategory(props: NostoCategoryProps): void
+  export function useNostoCheckout(props?: NostoCheckoutProps): void
+  export function useNostoHome(props?: NostoHomeProps): void
+  export function useNostoOrder(props: NostoOrderProps): void
+  export function useNostoOther(props?: NostoOtherProps): void
+  export function useNostoProduct(props: { product: string; tagging: { product_id: string; selected_sku_id?: string }; placements?: string[] }): void
+  export function useNostoSearch(props: NostoSearchProps): void
 
   // Component types
   interface NostoProviderProps {

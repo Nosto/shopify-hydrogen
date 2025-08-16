@@ -1,9 +1,4 @@
-import { useNostoOrder } from "@nosto/nosto-react"
-
-interface NostoOrderProps {
-  order: any // Using any for now to avoid complex order typing
-  placements?: string[]
-}
+import { useNostoOrder, NostoOrderProps } from "@nosto/nosto-react"
 
 export default function NostoOrder(props: NostoOrderProps) {
   useNostoOrder(props)    
