@@ -3,7 +3,6 @@ import { NostoSession } from "@nosto/shopify-hydrogen"
 import { useMatches } from "@remix-run/react"
 import { parseGid } from "@shopify/hydrogen"
 import createScriptLoader from "../createScriptLoader";
-import { ReactNode } from "react"
 
 interface ShopifyMarkets {
   marketId?: string
@@ -11,7 +10,6 @@ interface ShopifyMarkets {
 }
 
 interface NostoProviderProps extends BaseNostoProviderProps {
-  children: ReactNode
   shopifyMarkets?: ShopifyMarkets
   nonce: string
   account: string
