@@ -16,7 +16,7 @@ interface NostoProviderProps {
   nonce: string
   account: string
   currentVariation?: string
-  [key: string]: any
+  scriptLoader?: (options: { scriptSrc: string }) => void
 }
 
 export default function NostoProvider({
