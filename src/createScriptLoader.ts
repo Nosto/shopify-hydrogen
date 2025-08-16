@@ -5,8 +5,15 @@
  * to handle building the URL string (scriptSrc in the returned function param).
  */
 
-export default function (nonce) {
-    return function (scriptSrc, options) {
+interface ScriptOptions {
+  attributes?: Record<string, string>
+  position?: 'head' | 'body'
+}
+
+type ScriptLoader = (scriptSrc: string, options?: ScriptOptions) => Promise<void>
+
+export default function createScriptLoader(nonce: string): ScriptLoader {
+    return function (scriptSrc: string, options?: ScriptOptions): Promise<void> {
         return new Promise((resolve, reject) => {
             const script = document.createElement("script")
             script.type = "text/javascript"

@@ -5,7 +5,7 @@ import { Await, useAsyncValue, useMatches } from "@remix-run/react"
 //Polyfill the Array.prototype.at() method for all browsers
 if (!Array.prototype.at) {
     Object.defineProperty(Array.prototype, "at", {
-        value: function (index) {
+        value: function (index: number) {
             if (index >= 0) {
                 return this[index]
             } else {
@@ -18,16 +18,51 @@ if (!Array.prototype.at) {
     })
 }
 
+interface CustomerData {
+    id?: string
+    firstName?: string
+    lastName?: string
+    email?: string
+    acceptsMarketing?: boolean
+}
+
+interface CartNode {
+    quantity: number
+    merchandise?: {
+        id?: string
+        product?: {
+            id: string
+            title?: string
+        }
+        price?: {
+            amount: string
+            currencyCode: string
+        }
+    }
+}
+
+interface Cart {
+    lines?: {
+        edges?: Array<{ node: CartNode }>
+    }
+}
+
+interface AsyncData {
+    customer?: CustomerData
+    cart?: Cart
+    storeDomain?: string
+}
+
 function AsyncSessionWrapper() {
     //Resolve async data:
     const {
         customer: customerData = {},
         cart: shopifyCart,
         storeDomain,
-    } = useAsyncValue() || {}
+    } = useAsyncValue() as AsyncData || {}
 
     //Get customer data to sync with Nosto:
-    let customerId = customerData?.id?.split("/").at(-1)
+    let customerId = customerData?.id?.split("/").at?.(-1)
     let customer_reference =
         customerId && storeDomain
             ? crypto.SHA256(customerId + storeDomain).toString()
@@ -44,11 +79,11 @@ function AsyncSessionWrapper() {
     let items = shopifyCart?.lines?.edges?.map((item) => item.node)
     let nostoCart = items?.map((item) => {
         return {
-            product_id: item?.merchandise?.product?.id.split("/")?.at(-1),
+            product_id: item?.merchandise?.product?.id.split("/")?.at?.(-1),
             name: item?.merchandise?.product?.title,
-            sku_id: item?.merchandise?.id?.split("/")?.at(-1),
+            sku_id: item?.merchandise?.id?.split("/")?.at?.(-1),
             quantity: item?.quantity,
-            unit_price: +item?.merchandise?.price?.amount,
+            unit_price: +(item?.merchandise?.price?.amount || 0),
             price_currency_code: item?.merchandise?.price?.currencyCode,
         }
     })

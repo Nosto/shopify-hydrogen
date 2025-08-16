@@ -1,4 +1,30 @@
-export async function getNostoData({ context: { storefront, session }, cartId }) {
+interface StorefrontI18n {
+  country?: string
+  language?: string
+}
+
+interface Storefront {
+  i18n: StorefrontI18n
+  query: (query: string, options?: any) => Promise<any>
+  getShopifyDomain?: () => string
+  CacheNone: () => any
+}
+
+interface Session {
+  get: (key: string) => Promise<string | null>
+}
+
+interface Context {
+  storefront: Storefront
+  session: Session
+}
+
+interface GetNostoDataParams {
+  context: Context
+  cartId?: string
+}
+
+export async function getNostoData({ context: { storefront, session }, cartId }: GetNostoDataParams) {
 
   async function getProviderData() {
     //Get Shopify market from localization:

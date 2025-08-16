@@ -1,6 +1,16 @@
 import { useNostoProduct } from "@nosto/nosto-react"
 
-export default function NostoProduct(props) {
+interface NostoProductProps {
+  product: string
+  tagging: {
+    selectedVariant?: {
+      sku?: string
+    }
+  }
+  placements?: string[]
+}
+
+export default function NostoProduct(props: NostoProductProps) {
     const { selectedVariant } = props.tagging
     useNostoProduct({
         product: props.product,
