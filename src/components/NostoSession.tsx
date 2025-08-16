@@ -79,7 +79,7 @@ function AsyncSessionWrapper() {
     let items = shopifyCart?.lines?.edges?.map((item) => item.node)
     let nostoCart = items?.map((item) => {
         return {
-            product_id: item?.merchandise?.product?.id.split("/")?.at?.(-1),
+            product_id: item?.merchandise?.product?.id.split("/").at(-1),
             name: item?.merchandise?.product?.title,
             sku_id: item?.merchandise?.id?.split("/")?.at?.(-1),
             quantity: item?.quantity,
