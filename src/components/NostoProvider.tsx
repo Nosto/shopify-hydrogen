@@ -1,32 +1,26 @@
-import { NostoProvider as NostoComponent, NostoProviderProps as BaseNostoProviderProps } from "@nosto/nosto-react"
+import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
 import { NostoSession } from "@nosto/shopify-hydrogen"
 import { useMatches } from "@remix-run/react"
 import { parseGid } from "@shopify/hydrogen"
 import createScriptLoader from "../createScriptLoader";
 
-interface ShopifyMarkets {
-  marketId?: string
-  language?: string
-}
+type BaseNostoProviderProps = React.ComponentProps<typeof NostoComponent>
 
 interface NostoProviderProps extends BaseNostoProviderProps {
-  shopifyMarkets?: ShopifyMarkets
-  nonce: string
-  account: string
-  currentVariation?: string
-  scriptLoader?: (options: { scriptSrc: string }) => void
+    nonce: string
 }
 
 export function NostoProvider({
                              children,
                              shopifyMarkets: shopifyMarketsProp,
+                             nonce,
                              ...props
                          }: NostoProviderProps) {
     const [root] = useMatches()
     const { language } = root?.data?.selectedLocale || {}
     const { market } = root?.data?.nostoProviderData?.localization?.country || {}
 
-    const scriptLoader = createScriptLoader(props.nonce)
+    const scriptLoader = createScriptLoader(nonce)
 
     const currentVariation =
         props?.currentVariation || root?.data?.selectedLocale?.currency

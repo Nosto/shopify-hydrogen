@@ -5,15 +5,12 @@
  * to handle building the URL string (scriptSrc in the returned function param).
  */
 
-interface ScriptOptions {
-  attributes?: Record<string, string>
-  position?: 'head' | 'body'
-}
+import { ScriptLoadOptions } from "@nosto/nosto-react"
 
-type ScriptLoader = (scriptSrc: string, options?: ScriptOptions) => Promise<void>
+type ScriptLoader = (scriptSrc: string, options?: ScriptLoadOptions) => Promise<void>
 
 export default function createScriptLoader(nonce: string): ScriptLoader {
-    return function (scriptSrc: string, options?: ScriptOptions): Promise<void> {
+    return function (scriptSrc: string, options?: ScriptLoadOptions): Promise<void> {
         return new Promise((resolve, reject) => {
             const script = document.createElement("script")
             script.type = "text/javascript"
@@ -22,7 +19,7 @@ export default function createScriptLoader(nonce: string): ScriptLoader {
             script.setAttribute("nonce", nonce)
             script.onload = () => resolve()
             script.onerror = () => reject()
-            Object.entries(options?.attributes ?? {}).forEach(([k, v]) => script.setAttribute(k, v))
+            Object.entries(options?.attributes ?? {}).forEach(([k, v]) => script.setAttribute(k, v as string))
             if (options?.position === "head") {
                 document.head.appendChild(script)
             } else {
