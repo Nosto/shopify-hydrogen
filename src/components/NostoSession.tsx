@@ -92,7 +92,7 @@ function AsyncSessionWrapper() {
     return <NostoComponent customer={customer} cart={cart}/>
 }
 
-export default function NostoSession() {
+export function NostoSession() {
     //Get nostoSessionData promise from root remix loader:
     const [root] = useMatches()
     const nostoPromise = root?.data?.nostoSessionData

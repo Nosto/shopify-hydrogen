@@ -1,4 +1,4 @@
-import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
+import { NostoProvider as NostoComponent, NostoProviderProps as BaseNostoProviderProps } from "@nosto/nosto-react"
 import { NostoSession } from "@nosto/shopify-hydrogen"
 import { useMatches } from "@remix-run/react"
 import { parseGid } from "@shopify/hydrogen"
@@ -10,7 +10,7 @@ interface ShopifyMarkets {
   language?: string
 }
 
-interface NostoProviderProps {
+interface NostoProviderProps extends BaseNostoProviderProps {
   children: ReactNode
   shopifyMarkets?: ShopifyMarkets
   nonce: string
@@ -19,7 +19,7 @@ interface NostoProviderProps {
   scriptLoader?: (options: { scriptSrc: string }) => void
 }
 
-export default function NostoProvider({
+export function NostoProvider({
                              children,
                              shopifyMarkets: shopifyMarketsProp,
                              ...props

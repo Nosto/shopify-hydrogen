@@ -1,6 +1,6 @@
 import { useNostoProduct, NostoProductProps } from "@nosto/nosto-react"
 
-export default function NostoProduct(props: NostoProductProps) {
+export function NostoProduct(props: NostoProductProps) {
     const { selectedVariant } = props.tagging
     useNostoProduct({
         product: props.product,
