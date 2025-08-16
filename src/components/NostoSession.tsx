@@ -62,7 +62,7 @@ function AsyncSessionWrapper() {
     } = useAsyncValue() as AsyncData || {}
 
     //Get customer data to sync with Nosto:
-    let customerId = customerData?.id?.split("/").at?.(-1)
+    let customerId = customerData?.id?.split("/").at(-1)
     let customer_reference =
         customerId && storeDomain
             ? crypto.SHA256(customerId + storeDomain).toString()
