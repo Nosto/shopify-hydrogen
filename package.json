@@ -35,6 +35,10 @@
     "@nosto/nosto-react": "^2.7.0",
     "crypto-es": "^2.1.0"
   },
+  "peerDependencies": {
+    "@remix-run/react": "^2.10.3",
+    "@shopify/hydrogen": "^2024.7.4"
+  },
   "bugs": {
     "url": "https://github.com/Nosto/shopify-hydrogen/issues",
     "homepage": "https://github.com/Nosto/shopify-hydrogen#readme"
