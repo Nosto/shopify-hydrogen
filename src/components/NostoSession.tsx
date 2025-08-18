@@ -5,7 +5,7 @@ import { Await, useAsyncValue, useMatches } from "@remix-run/react"
 //Polyfill the Array.prototype.at() method for all browsers
 if (!Array.prototype.at) {
     Object.defineProperty(Array.prototype, "at", {
-        value: function (index) {
+        value: function (index: number) {
             if (index >= 0) {
                 return this[index]
             } else {
@@ -18,13 +18,48 @@ if (!Array.prototype.at) {
     })
 }
 
+interface CustomerData {
+    id?: string
+    firstName?: string
+    lastName?: string
+    email?: string
+    acceptsMarketing?: boolean
+}
+
+interface CartNode {
+    quantity: number
+    merchandise?: {
+        id?: string
+        product?: {
+            id: string
+            title?: string
+        }
+        price?: {
+            amount: number
+            currencyCode: string
+        }
+    }
+}
+
+interface Cart {
+    lines?: {
+        edges?: Array<{ node: CartNode }>
+    }
+}
+
+interface AsyncData {
+    customer?: CustomerData
+    cart?: Cart
+    storeDomain?: string
+}
+
 function AsyncSessionWrapper() {
     //Resolve async data:
     const {
         customer: customerData = {},
         cart: shopifyCart,
         storeDomain,
-    } = useAsyncValue() || {}
+    } = useAsyncValue() as AsyncData || {}
 
     //Get customer data to sync with Nosto:
     let customerId = customerData?.id?.split("/").at(-1)
@@ -48,7 +83,7 @@ function AsyncSessionWrapper() {
             name: item?.merchandise?.product?.title,
             sku_id: item?.merchandise?.id?.split("/")?.at(-1),
             quantity: item?.quantity,
-            unit_price: +item?.merchandise?.price?.amount,
+            unit_price: item?.merchandise?.price?.amount ?? 0,
             price_currency_code: item?.merchandise?.price?.currencyCode,
         }
     })
@@ -57,7 +92,7 @@ function AsyncSessionWrapper() {
     return <NostoComponent customer={customer} cart={cart}/>
 }
 
-export default function NostoSession() {
+export function NostoSession() {
     //Get nostoSessionData promise from root remix loader:
     const [root] = useMatches()
     const nostoPromise = root?.data?.nostoSessionData
