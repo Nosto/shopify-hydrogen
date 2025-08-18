@@ -35,7 +35,7 @@ interface CartNode {
             title?: string
         }
         price?: {
-            amount: string
+            amount: number
             currencyCode: string
         }
     }
@@ -83,7 +83,7 @@ function AsyncSessionWrapper() {
             name: item?.merchandise?.product?.title,
             sku_id: item?.merchandise?.id?.split("/")?.at(-1),
             quantity: item?.quantity,
-            unit_price: +(item?.merchandise?.price?.amount as string),
+            unit_price: item?.merchandise?.price?.amount ?? 0,
             price_currency_code: item?.merchandise?.price?.currencyCode,
         }
     })
