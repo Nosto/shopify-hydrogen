@@ -19,6 +19,6 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPMJS_TOKEN }}
-          access: "public"
+          access: 'public'
           dry-run: false
           check-version: true

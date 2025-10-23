@@ -1,6 +1,15 @@
-import { useNostoSearch, NostoSearchProps } from "@nosto/nosto-react"
+import * as React from 'react';
+export type NostoSearchProps = import('@nosto/nosto-react').NostoSearchProps;
 
 export function NostoSearch(props: NostoSearchProps) {
-  useNostoSearch(props)    
-  return null
+  React.useEffect(() => {
+    let cancelled = false;
+    import('@nosto/nosto-react').then((m) => {
+      if (!cancelled) m.useNostoSearch(props);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [props]);
+  return null;
 }

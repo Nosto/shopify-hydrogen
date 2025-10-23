@@ -1,6 +1,15 @@
-import { useNosto404, Nosto404Props } from "@nosto/nosto-react"
+import * as React from 'react';
+export type Nosto404Props = import('@nosto/nosto-react').Nosto404Props;
 
 export function Nosto404(props: Nosto404Props) {
-  useNosto404(props)    
-  return null
+  React.useEffect(() => {
+    let cancelled = false;
+    import('@nosto/nosto-react').then((m) => {
+      if (!cancelled) m.useNosto404(props);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [props]);
+  return null;
 }

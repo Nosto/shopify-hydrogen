@@ -1,31 +1,33 @@
 interface StorefrontI18n {
-  country?: string
-  language?: string
+  country?: string;
+  language?: string;
 }
 
 interface Storefront {
-  i18n: StorefrontI18n
-  query: (query: string, options?: any) => Promise<any>
-  getShopifyDomain?: () => string
-  CacheNone: () => any
+  i18n: StorefrontI18n;
+  query: (query: string, options?: any) => Promise<any>;
+  getShopifyDomain?: () => string;
+  CacheNone: () => any;
 }
 
 interface Session {
-  get: (key: string) => Promise<string | null>
+  get: (key: string) => Promise<string | null>;
 }
 
 interface Context {
-  storefront: Storefront
-  session: Session
+  storefront: Storefront;
+  session: Session;
 }
 
 interface GetNostoDataParams {
-  context: Context
-  cartId?: string
+  context: Context;
+  cartId?: string;
 }
 
-export async function getNostoData({ context: { storefront, session }, cartId }: GetNostoDataParams) {
-
+export async function getNostoData({
+  context: { storefront, session },
+  cartId,
+}: GetNostoDataParams) {
   async function getProviderData() {
     //Get Shopify market from localization:
     const countryCode = storefront?.i18n?.country;
@@ -41,11 +43,13 @@ export async function getNostoData({ context: { storefront, session }, cartId }:
                                   }
                                 }
                               `;
-    const market = countryCode ? await storefront.query(NOSTO_MARKET_QUERY, {
-      cache: storefront.CacheNone()
-    }) : undefined;
+    const market = countryCode
+      ? await storefront.query(NOSTO_MARKET_QUERY, {
+          cache: storefront.CacheNone(),
+        })
+      : undefined;
 
-    return market
+    return market;
   }
 
   async function getSessionData() {
@@ -64,10 +68,12 @@ export async function getNostoData({ context: { storefront, session }, cartId }:
                                       id
                                     }
                                   }
-                              `
-    const customer = customerAccessToken ? await storefront.query(NOSTO_CUSTOMER_QUERY, {
-      cache: storefront.CacheNone(),
-    }) : undefined;
+                              `;
+    const customer = customerAccessToken
+      ? await storefront.query(NOSTO_CUSTOMER_QUERY, {
+          cache: storefront.CacheNone(),
+        })
+      : undefined;
 
     //Fetch cart data:
     const NOSTO_CART_QUERY = `#graphql
@@ -98,17 +104,19 @@ export async function getNostoData({ context: { storefront, session }, cartId }:
                                   }
                                 }
                               `;
-    const { cart } = !cartId ? {} : await storefront.query(NOSTO_CART_QUERY, {
-      variables: {
-        cartId,
-        country: storefront.i18n.country,
-        language: storefront.i18n.language,
-      },
-      cache: storefront.CacheNone(),
-    });
+    const { cart } = !cartId
+      ? {}
+      : await storefront.query(NOSTO_CART_QUERY, {
+          variables: {
+            cartId,
+            country: storefront.i18n.country,
+            language: storefront.i18n.language,
+          },
+          cache: storefront.CacheNone(),
+        });
 
-    return { ...customer, cart, storeDomain }
+    return { ...customer, cart, storeDomain };
   }
 
-  return { nostoProviderData: await getProviderData(), nostoSessionData: getSessionData() }
+  return { nostoProviderData: await getProviderData(), nostoSessionData: getSessionData() };
 }
