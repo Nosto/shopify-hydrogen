@@ -27,12 +27,15 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "prepare": "tsc",
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "build": "npm run format && npm run lint && tsc -p tsconfig.json",
+    "build": "yarn run format && yarn run lint && tsc -p tsconfig.json",
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix"
   },
   "dependencies": {
@@ -57,6 +60,8 @@
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.6.2",
+    "react-router": "7.9.2",
+    "react-router-dom": "7.9.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.46.2"
   }
