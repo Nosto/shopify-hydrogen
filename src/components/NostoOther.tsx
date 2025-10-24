@@ -1,6 +1,15 @@
-import { useNostoOther, NostoOtherProps } from "@nosto/nosto-react"
+import * as React from 'react';
+export type NostoOtherProps = import('@nosto/nosto-react').NostoOtherProps;
 
 export function NostoOther(props: NostoOtherProps) {
-  useNostoOther(props)    
-  return null
+  React.useEffect(() => {
+    let cancelled = false;
+    import('@nosto/nosto-react').then((m) => {
+      if (!cancelled) m.useNostoOther(props);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [props]);
+  return null;
 }
