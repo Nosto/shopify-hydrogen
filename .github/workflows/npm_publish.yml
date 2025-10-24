@@ -4,52 +4,21 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 16.15.0
           registry-url: https://registry.npmjs.org/
-
-      - name: Install Yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Configure npm authentication
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" > ~/.npmrc
-
-      - name: Check if version already exists
-        id: check
-        run: |
-          PKG_NAME=$(node -p "require('./package.json').name")
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          PUBLISHED_VERSION=$(npm view "$PKG_NAME" version || echo "0.0.0")
-          echo "Package: $PKG_NAME"
-          echo "Local:   $PKG_VERSION"
-          echo "Remote:  $PUBLISHED_VERSION"
-          if [ "$PKG_VERSION" = "$PUBLISHED_VERSION" ]; then
-            echo "publish=false" >> $GITHUB_OUTPUT
-          else
-            echo "publish=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Publish to npm
-        if: steps.check.outputs.publish == 'true'
-        run: npm publish --access public
-
-      - name: Skip message
-        if: steps.check.outputs.publish == 'false'
-        run: echo "Package version already published. Skipping publish."
+      - run: npm install -g yarn
+      - run: npm init --scope=nosto -y
+      - run: yarn install
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPMJS_TOKEN }}
+          access: 'public'
+          dry-run: false
+          check-version: true
