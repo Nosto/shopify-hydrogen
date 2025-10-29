@@ -33,7 +33,6 @@ jobs:
           echo "registry=https://registry.npmjs.org/" > $NPM_CONFIG_USERCONFIG
           echo "@nosto:registry=https://registry.npmjs.org/" >> $NPM_CONFIG_USERCONFIG
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" >> $NPM_CONFIG_USERCONFIG
-          npm whoami
         
       - name: Check if version already exists
         id: check
