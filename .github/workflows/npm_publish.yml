@@ -30,8 +30,11 @@ jobs:
 
       - name: Configure npm authentication
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" > ~/.npmrc
-          npm whoami
+          echo "registry=https://registry.npmjs.org/" > ~/.npmrc
+          echo "@nosto:registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" >> ~/.npmrc
+          cat ~/.npmrc
+          npm whoami || true
         
       - name: Check if version already exists
         id: check
