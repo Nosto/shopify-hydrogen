@@ -28,16 +28,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Clear default npm token
-        run: unset NODE_AUTH_TOKEN
-
       - name: Configure npm authentication
+        env:
+          NPM_CONFIG_USERCONFIG: ~/.npmrc
         run: |
           echo "registry=https://registry.npmjs.org/" > ~/.npmrc
           echo "@nosto:registry=https://registry.npmjs.org/" >> ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" >> ~/.npmrc
-          cat ~/.npmrc
-          npm whoami || true
+          npm whoami
         
       - name: Check if version already exists
         id: check
