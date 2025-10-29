@@ -29,8 +29,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Configure npm authentication
-        env:
-          NPM_CONFIG_USERCONFIG: ~/.npmrc
         run: |
           echo "registry=https://registry.npmjs.org/" > $NPM_CONFIG_USERCONFIG
           echo "@nosto:registry=https://registry.npmjs.org/" >> $NPM_CONFIG_USERCONFIG
