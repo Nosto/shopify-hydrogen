@@ -29,8 +29,10 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Configure npm authentication
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" > ~/.npmrc
-
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_TOKEN }}" > ~/.npmrc
+          npm whoami
+        
       - name: Check if version already exists
         id: check
         run: |
