@@ -1,15 +1,6 @@
-import * as React from 'react';
-export type NostoOrderProps = import('@nosto/nosto-react').NostoOrderProps;
+import { useNostoOrder, NostoOrderProps } from "@nosto/nosto-react"
 
 export function NostoOrder(props: NostoOrderProps) {
-  React.useEffect(() => {
-    let cancelled = false;
-    import('@nosto/nosto-react').then((m) => {
-      if (!cancelled) m.useNostoOrder(props);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [props]);
-  return null;
+  useNostoOrder(props)    
+  return null
 }

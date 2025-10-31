@@ -1,21 +1,16 @@
 import * as React from 'react';
 import crypto from 'crypto-es';
-import { Await, useAsyncValue } from 'react-router-dom';
-import { ClientOnly } from '../internal/clientOnly';
-import { useHydrogenRootFallback } from '../lib/useHydrogenRootFallback';
+import { NostoSession as NostoComponent } from "@nosto/nosto-react"
+import {useHydrogenRootFallback} from '../lib/useHydrogenRootFallback';
+import { Await, useAsyncValue } from 'react-router';
 
-const LazySession = React.lazy(() =>
-  import('@nosto/nosto-react').then((m) => ({ default: m.NostoSession })),
-);
-
+// Polyfill Array.prototype.at for older browsers:
 if (!Array.prototype.at) {
   Object.defineProperty(Array.prototype, 'at', {
     value: function (index: number) {
       return index >= 0 ? this[index] : this[this.length + index];
     },
-    enumerable: false,
-    configurable: true,
-    writable: true,
+    enumerable: false, configurable: true, writable: true,
   });
 }
 
@@ -34,9 +29,7 @@ interface CartNode {
     price?: { amount: number; currencyCode: string };
   };
 }
-interface Cart {
-  lines?: { edges?: Array<{ node: CartNode }> };
-}
+interface Cart { lines?: { edges?: Array<{ node: CartNode }> } }
 interface AsyncData {
   customer?: CustomerData;
   cart?: Cart;
@@ -44,11 +37,8 @@ interface AsyncData {
 }
 
 function AsyncSessionWrapper() {
-  const {
-    customer: customerData = {},
-    cart: shopifyCart,
-    storeDomain,
-  } = (useAsyncValue() as AsyncData) || {};
+  const { customer: customerData = {}, cart: shopifyCart, storeDomain } =
+    (useAsyncValue() as AsyncData) || {};
 
   const customerId = customerData?.id?.split('/')?.at(-1);
   const customer_reference =
@@ -73,18 +63,13 @@ function AsyncSessionWrapper() {
   }));
   const cart = nostoCart ? { items: nostoCart } : undefined;
 
-  return (
-    <ClientOnly>
-      <React.Suspense fallback={null}>
-        <LazySession customer={customer} cart={cart} />
-      </React.Suspense>
-    </ClientOnly>
-  );
+    return <NostoComponent customer={customer} cart={cart} />
 }
 
 export function NostoSession() {
   const root = useHydrogenRootFallback();
-  const nostoPromise = root?.nostoSessionData;
+    const nostoPromise = root?.nostoSessionData;
+    
   return (
     <Await resolve={nostoPromise}>
       <AsyncSessionWrapper />
