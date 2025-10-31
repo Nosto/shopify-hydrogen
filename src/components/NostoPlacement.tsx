@@ -1,17 +1,7 @@
 import * as React from 'react';
-import { ClientOnly } from '../internal/clientOnly';
-export type NostoPlacementProps = import('@nosto/nosto-react').NostoPlacementProps;
-
-const LazyPlacement = React.lazy(() =>
-  import('@nosto/nosto-react').then((m) => ({ default: m.NostoPlacement })),
-);
+import { NostoPlacement as NostoComponent } from '@nosto/nosto-react';
+import type { NostoPlacementProps } from '@nosto/nosto-react';
 
 export function NostoPlacement(props: NostoPlacementProps) {
-  return (
-    <ClientOnly>
-      <React.Suspense fallback={null}>
-        <LazyPlacement {...props} />
-      </React.Suspense>
-    </ClientOnly>
-  );
+  return <NostoComponent {...props} />;
 }
