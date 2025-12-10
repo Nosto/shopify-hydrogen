@@ -46,7 +46,7 @@ jobs:
 
       - name: Publish to npm
         if: steps.check.outputs.publish == 'true'
-        run: npm publish --access public
+        run: npm publish --access public --provenance
 
       - name: Skip message
         if: steps.check.outputs.publish == 'false'
