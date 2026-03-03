@@ -9,14 +9,14 @@ import { ScriptLoadOptions } from '@nosto/nosto-react';
 
 type ScriptLoader = (scriptSrc: string, options?: ScriptLoadOptions) => Promise<void>;
 
-export default function createScriptLoader(nonce: string): ScriptLoader {
+export default function createScriptLoader(nonce?: string): ScriptLoader {
   return function (scriptSrc: string, options?: ScriptLoadOptions): Promise<void> {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = scriptSrc;
       script.async = true;
-      script.setAttribute('nonce', nonce);
+      if (nonce) script.setAttribute('nonce', nonce);
       script.onload = () => resolve();
       script.onerror = () => reject();
       Object.entries(options?.attributes ?? {}).forEach(([k, v]) =>

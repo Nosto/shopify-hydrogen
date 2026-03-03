@@ -1,7 +1,7 @@
 import * as React from 'react';
 import crypto from 'crypto-es';
-import { NostoSession as NostoComponent } from "@nosto/nosto-react"
-import {useHydrogenRootFallback} from '../lib/useHydrogenRootFallback';
+import { NostoSession as NostoComponent } from '@nosto/nosto-react';
+import { useHydrogenRootFallback } from '../lib/useHydrogenRootFallback';
 import { Await, useAsyncValue } from 'react-router';
 
 // Polyfill Array.prototype.at for older browsers:
@@ -10,7 +10,9 @@ if (!Array.prototype.at) {
     value: function (index: number) {
       return index >= 0 ? this[index] : this[this.length + index];
     },
-    enumerable: false, configurable: true, writable: true,
+    enumerable: false,
+    configurable: true,
+    writable: true,
   });
 }
 
@@ -29,7 +31,9 @@ interface CartNode {
     price?: { amount: number; currencyCode: string };
   };
 }
-interface Cart { lines?: { edges?: Array<{ node: CartNode }> } }
+interface Cart {
+  lines?: { edges?: Array<{ node: CartNode }> };
+}
 interface AsyncData {
   customer?: CustomerData;
   cart?: Cart;
@@ -37,8 +41,11 @@ interface AsyncData {
 }
 
 function AsyncSessionWrapper() {
-  const { customer: customerData = {}, cart: shopifyCart, storeDomain } =
-    (useAsyncValue() as AsyncData) || {};
+  const {
+    customer: customerData = {},
+    cart: shopifyCart,
+    storeDomain,
+  } = (useAsyncValue() as AsyncData) || {};
 
   const customerId = customerData?.id?.split('/')?.at(-1);
   const customer_reference =
@@ -63,13 +70,13 @@ function AsyncSessionWrapper() {
   }));
   const cart = nostoCart ? { items: nostoCart } : undefined;
 
-    return <NostoComponent customer={customer} cart={cart} />
+  return <NostoComponent customer={customer} cart={cart} />;
 }
 
 export function NostoSession() {
   const root = useHydrogenRootFallback();
-    const nostoPromise = root?.nostoSessionData;
-    
+  const nostoPromise = root?.nostoSessionData;
+
   return (
     <Await resolve={nostoPromise}>
       <AsyncSessionWrapper />

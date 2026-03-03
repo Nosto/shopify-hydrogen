@@ -2,13 +2,13 @@ import * as React from 'react';
 import { parseGid } from '@shopify/hydrogen';
 import createScriptLoader from '../createScriptLoader';
 import { useHydrogenRootFallback } from '../lib/useHydrogenRootFallback';
-import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
+import { NostoProvider as NostoComponent } from '@nosto/nosto-react';
 import { NostoSession } from './NostoSession';
 
-type BaseNostoProviderProps = React.ComponentProps<typeof NostoComponent>
+type BaseNostoProviderProps = React.ComponentProps<typeof NostoComponent>;
 
 interface NostoProviderProps extends BaseNostoProviderProps {
-  nonce: string;
+  nonce?: string;
   currency?: string;
 }
 
@@ -44,14 +44,14 @@ export function NostoProvider({
   const scriptLoader = React.useMemo(() => createScriptLoader(nonce), [nonce]);
 
   return (
-        <NostoComponent
-          {...props}
-          {...(shopifyMarkets ? { shopifyMarkets } : {})}
-          currentVariation={currentVariation}
-          scriptLoader={scriptLoader}
-        >
-          <NostoSession />
-          {children}
-        </NostoComponent>
+    <NostoComponent
+      {...props}
+      {...(shopifyMarkets ? { shopifyMarkets } : {})}
+      currentVariation={currentVariation}
+      scriptLoader={scriptLoader}
+    >
+      <NostoSession />
+      {children}
+    </NostoComponent>
   );
 }
