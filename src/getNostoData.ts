@@ -1,121 +1,82 @@
-interface StorefrontI18n {
-  country?: string;
-  language?: string;
-}
+import type { StorefrontClient } from '@shopify/hydrogen';
+import type { CustomerAccountClient } from '@shopify/hydrogen/customer-account';
+import { gql } from '@shopify/hydrogen/customer-account';
 
-interface Storefront {
-  i18n: StorefrontI18n;
-  query: (query: string, options?: any) => Promise<any>;
-  getShopifyDomain?: () => string;
-  CacheNone: () => any;
-}
-
-interface Session {
-  get: (key: string) => Promise<string | null>;
-}
-
-interface Context {
-  storefront: Storefront;
-  session: Session;
+interface CustomerAccount {
+  client: Pick<CustomerAccountClient, 'graphql'>;
+  accessToken?: string;
 }
 
 interface GetNostoDataParams {
-  context: Context;
-  cartId?: string;
+  storefrontClient: Pick<StorefrontClient, 'graphql' | 'storeUrl' | 'requestContext'>;
+  customerAccount?: CustomerAccount;
 }
 
-export async function getNostoData({
-  context: { storefront, session },
-  cartId,
-}: GetNostoDataParams) {
+//$country and $language are filled in by the storefront client from the request context:
+const NOSTO_MARKET_QUERY = `#graphql
+  query NostoMarket($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+      localization {
+        country {
+          market {
+            id
+            handle
+          }
+        }
+      }
+    }
+`;
+
+const NOSTO_CUSTOMER_QUERY = gql(`
+  query NostoCustomer {
+    customer {
+      id
+      firstName
+      lastName
+      emailAddress {
+        emailAddress
+        marketingState
+      }
+    }
+  }
+`);
+
+export async function getNostoData({ storefrontClient, customerAccount }: GetNostoDataParams) {
   async function getProviderData() {
     //Get Shopify market from localization:
-    const countryCode = storefront?.i18n?.country;
-    const NOSTO_MARKET_QUERY = `#graphql
-                                query GetMarketId @inContext(country: ${countryCode}) {
-                                  localization {
-                                    country {
-                                      market {
-                                        id
-                                        handle
-                                      }
-                                    }
-                                  }
-                                }
-                              `;
-    const market = countryCode
-      ? await storefront.query(NOSTO_MARKET_QUERY, {
-          cache: storefront.CacheNone(),
-        })
-      : undefined;
+    const { data } = await storefrontClient.graphql(NOSTO_MARKET_QUERY);
 
-    return market;
+    return {
+      localization: data?.localization,
+      language: storefrontClient.requestContext.i18n.language,
+    };
   }
 
   async function getSessionData() {
-    //Get store domain:
-    const storeDomain = storefront?.getShopifyDomain?.();
+    //Store URL with protocol, same value as the classic getShopifyDomain():
+    const storeDomain = storefrontClient.storeUrl;
 
-    //Fetch customer data:
-    const customerAccessToken = await session.get('customerAccessToken');
-    const NOSTO_CUSTOMER_QUERY = `#graphql
-                                  query {
-                                    customer(customerAccessToken: "${customerAccessToken}") {
-                                      firstName
-                                      lastName
-                                      email
-                                      acceptsMarketing
-                                      id
-                                    }
-                                  }
-                              `;
-    const customer = customerAccessToken
-      ? await storefront.query(NOSTO_CUSTOMER_QUERY, {
-          cache: storefront.CacheNone(),
-        })
+    //Fetch customer data from the Customer Account API:
+    if (!customerAccount?.accessToken) {
+      return { storeDomain };
+    }
+
+    //An expired token or API error shouldn't break the page, Nosto then tracks the visitor as a guest:
+    const data = await customerAccount.client
+      .graphql(NOSTO_CUSTOMER_QUERY, { accessToken: customerAccount.accessToken })
+      .then((result) => result.data)
+      .catch(() => undefined);
+    const customer = data?.customer
+      ? {
+          id: data.customer.id,
+          firstName: data.customer.firstName,
+          lastName: data.customer.lastName,
+          email: data.customer.emailAddress?.emailAddress,
+          acceptsMarketing: data.customer.emailAddress?.marketingState === 'SUBSCRIBED',
+        }
       : undefined;
 
-    //Fetch cart data:
-    const NOSTO_CART_QUERY = `#graphql
-                              query CartQuery($cartId: ID!, $country: CountryCode, $language: LanguageCode)
-                                @inContext(country: $country, language: $language) {
-                                  cart(id: $cartId) {
-                                    lines(first: 100) {
-                                      edges {
-                                        node {
-                                          quantity
-                                          merchandise {
-                                            ... on ProductVariant {
-                                              id
-                                              title
-                                              price {
-                                                currencyCode
-                                                amount
-                                              }
-                                              product {
-                                                id
-                                                title
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              `;
-    const { cart } = !cartId
-      ? {}
-      : await storefront.query(NOSTO_CART_QUERY, {
-          variables: {
-            cartId,
-            country: storefront.i18n.country,
-            language: storefront.i18n.language,
-          },
-          cache: storefront.CacheNone(),
-        });
-
-    return { ...customer, cart, storeDomain };
+    return { customer, storeDomain };
   }
 
   return { nostoProviderData: await getProviderData(), nostoSessionData: getSessionData() };
