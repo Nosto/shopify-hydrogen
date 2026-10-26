@@ -43,7 +43,7 @@
     "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
-    "@shopify/hydrogen": "^2025.7.0",
+    "@shopify/hydrogen": "^2026.10.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "7.9.2",
