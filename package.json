@@ -33,7 +33,9 @@
   "scripts": {
     "prepare": "tsc",
     "type-check": "tsc --noEmit",
+    "test": "node --test src/**/*.test.ts",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "build": "yarn run format && yarn run lint && tsc -p tsconfig.json",
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix"
@@ -43,7 +45,6 @@
     "crypto-es": "^2.1.0"
   },
   "peerDependencies": {
-    "@shopify/hydrogen": "^2025.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "7.9.2",

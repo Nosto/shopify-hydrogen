@@ -1,10 +1,10 @@
-import { useNostoProduct, NostoProductProps } from "@nosto/nosto-react"
+import { useNostoProduct, NostoProductProps } from '@nosto/nosto-react';
 
 export function NostoProduct(props: NostoProductProps) {
-    const { selectedVariant } = props.tagging
-    useNostoProduct({
-        product: props.product,
-        tagging: { product_id: props.product, selected_sku_id: selectedVariant?.sku }
-    })
-    return null
+  const { selectedVariant } = props.tagging;
+  useNostoProduct({
+    product: props.product,
+    tagging: { product_id: props.product, selected_sku_id: selectedVariant?.sku },
+  });
+  return null;
 }
