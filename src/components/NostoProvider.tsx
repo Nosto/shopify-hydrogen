@@ -1,30 +1,25 @@
 import * as React from 'react';
 import createScriptLoader from '../createScriptLoader';
 import { useHydrogenRootFallback } from '../lib/useHydrogenRootFallback';
-import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
+import { NostoProvider as NostoComponent } from '@nosto/nosto-react';
 import { NostoSession } from './NostoSession';
 
-type BaseNostoProviderProps = React.ComponentProps<typeof NostoComponent>
+type BaseNostoProviderProps = React.ComponentProps<typeof NostoComponent>;
 
 interface NostoProviderProps extends BaseNostoProviderProps {
   nonce: string;
   currency?: string;
 }
 
-function parseGid(value: string) {
-  const url = new URL(value);
-
-  if (url.protocol !== 'gid:' || url.hostname !== 'shopify') {
-    throw new Error('Invalid Shopify GID');
+function parseId(gid: string) {
+  try {
+    const { protocol, hostname, pathname } = new URL(gid);
+    if (protocol !== 'gid:' || hostname !== 'shopify') return undefined;
+    const [, resource, id] = pathname.split('/');
+    return resource && id ? id : undefined;
+  } catch {
+    return undefined;
   }
-
-  const [, resource, id] = url.pathname.split('/');
-
-  if (!resource || !id) {
-    throw new Error('Missing resource or ID');
-  }
-
-  return { resource, id };
 }
 
 export function NostoProvider({
@@ -47,11 +42,9 @@ export function NostoProvider({
     propMarketId != null
       ? typeof propMarketId === 'number'
         ? propMarketId
-        : propMarketId.startsWith('gid://')
-          ? (parseGid(propMarketId).id ?? propMarketId)
-          : propMarketId
+        : (parseId(propMarketId) ?? propMarketId)
       : rootMarketGid
-        ? (parseGid(rootMarketGid).id ?? rootMarketGid)
+        ? parseId(rootMarketGid)
         : undefined;
 
   const shopifyMarkets = language && marketId ? { language, marketId } : undefined;
@@ -59,14 +52,14 @@ export function NostoProvider({
   const scriptLoader = React.useMemo(() => createScriptLoader(nonce), [nonce]);
 
   return (
-        <NostoComponent
-          {...props}
-          {...(shopifyMarkets ? { shopifyMarkets } : {})}
-          currentVariation={currentVariation}
-          scriptLoader={scriptLoader}
-        >
-          <NostoSession />
-          {children}
-        </NostoComponent>
+    <NostoComponent
+      {...props}
+      {...(shopifyMarkets ? { shopifyMarkets } : {})}
+      currentVariation={currentVariation}
+      scriptLoader={scriptLoader}
+    >
+      <NostoSession />
+      {children}
+    </NostoComponent>
   );
 }
