@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { parseGid } from '@shopify/hydrogen';
 import createScriptLoader from '../createScriptLoader';
 import { useHydrogenRootFallback } from '../lib/useHydrogenRootFallback';
 import { NostoProvider as NostoComponent } from "@nosto/nosto-react"
@@ -10,6 +9,22 @@ type BaseNostoProviderProps = React.ComponentProps<typeof NostoComponent>
 interface NostoProviderProps extends BaseNostoProviderProps {
   nonce: string;
   currency?: string;
+}
+
+function parseGid(value: string) {
+  const url = new URL(value);
+
+  if (url.protocol !== 'gid:' || url.hostname !== 'shopify') {
+    throw new Error('Invalid Shopify GID');
+  }
+
+  const [, resource, id] = url.pathname.split('/');
+
+  if (!resource || !id) {
+    throw new Error('Missing resource or ID');
+  }
+
+  return { resource, id };
 }
 
 export function NostoProvider({
