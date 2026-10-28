@@ -14,7 +14,9 @@ interface NostoProviderProps extends BaseNostoProviderProps {
 function parseId(gid: string) {
   try {
     const { protocol, hostname, pathname } = new URL(gid);
-    if (protocol !== 'gid:' || hostname !== 'shopify') return undefined;
+    if (protocol !== 'gid:' || hostname !== 'shopify') { 
+      return undefined;
+    }
     const [, resource, id] = pathname.split('/');
     return resource && id ? id : undefined;
   } catch {
