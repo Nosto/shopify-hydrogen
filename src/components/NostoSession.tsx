@@ -1,7 +1,9 @@
 import * as React from 'react';
 import crypto from 'crypto-es';
-import { NostoSession as NostoComponent } from "@nosto/nosto-react"
-import {useHydrogenRootFallback} from '../lib/useHydrogenRootFallback';
+import { NostoSession as NostoComponent } from '@nosto/nosto-react';
+import type { CartServerHandlers } from '@shopify/hydrogen';
+import { createCartComponents } from '@shopify/hydrogen/react';
+import { useHydrogenRootFallback } from '../lib/useHydrogenRootFallback';
 import { Await, useAsyncValue } from 'react-router';
 
 // Polyfill Array.prototype.at for older browsers:
@@ -14,31 +16,44 @@ if (!Array.prototype.at) {
   });
 }
 
+//The cart hooks read the app's <CartProvider>, so no app-specific typing is needed here:
+const { useOptionalCart } = createCartComponents<CartServerHandlers>();
+
 interface CustomerData {
   id?: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
   acceptsMarketing?: boolean;
 }
-interface CartNode {
-  quantity: number;
-  merchandise?: {
-    id?: string;
-    product?: { id: string; title?: string };
-    price?: { amount: number; currencyCode: string };
-  };
-}
-interface Cart { lines?: { edges?: Array<{ node: CartNode }> } }
 interface AsyncData {
   customer?: CustomerData;
-  cart?: Cart;
   storeDomain?: string;
 }
 
+function useNostoCart() {
+  const lines = useOptionalCart((state) => state.data.lines?.nodes);
+
+  //Skip optimistic lines that don't have product details yet:
+  const items = lines?.filter((line) => typeof line.merchandise?.product?.id === 'string');
+
+  return items
+    ? {
+        items: items.map((line) => ({
+          product_id: (line.merchandise.product.id as string).split('/').at(-1),
+          name: line.merchandise.product.title,
+          sku_id: line.merchandise.id.split('/').at(-1),
+          quantity: line.quantity,
+          unit_price: Number(line.cost?.amountPerQuantity?.amount ?? 0),
+          price_currency_code: line.cost?.amountPerQuantity?.currencyCode,
+        })),
+      }
+    : undefined;
+}
+
 function AsyncSessionWrapper() {
-  const { customer: customerData = {}, cart: shopifyCart, storeDomain } =
-    (useAsyncValue() as AsyncData) || {};
+  const { customer: customerData = {}, storeDomain } = (useAsyncValue() as AsyncData) || {};
+  const cart = useNostoCart();
 
   const customerId = customerData?.id?.split('/')?.at(-1);
   const customer_reference =
@@ -52,24 +67,13 @@ function AsyncSessionWrapper() {
     newsletter: customerData?.acceptsMarketing ?? undefined,
   };
 
-  const items = shopifyCart?.lines?.edges?.map((e) => e.node);
-  const nostoCart = items?.map((item) => ({
-    product_id: item?.merchandise?.product?.id.split('/')?.at(-1),
-    name: item?.merchandise?.product?.title,
-    sku_id: item?.merchandise?.id?.split('/')?.at(-1),
-    quantity: item?.quantity,
-    unit_price: item?.merchandise?.price?.amount ?? 0,
-    price_currency_code: item?.merchandise?.price?.currencyCode,
-  }));
-  const cart = nostoCart ? { items: nostoCart } : undefined;
-
-    return <NostoComponent customer={customer} cart={cart} />
+  return <NostoComponent customer={customer} cart={cart} />;
 }
 
 export function NostoSession() {
   const root = useHydrogenRootFallback();
-    const nostoPromise = root?.nostoSessionData;
-    
+  const nostoPromise = root?.nostoSessionData;
+
   return (
     <Await resolve={nostoPromise}>
       <AsyncSessionWrapper />

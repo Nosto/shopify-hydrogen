@@ -1,5 +1,10 @@
 # @nosto/shopify-hydrogen
 
+> [!IMPORTANT]
+> **v3 is a breaking release.** It requires Hydrogen 2026-10 (`@shopify/hydrogen@^2026.10.0`), React 19 and React Router ^7.15.1, and `getNostoData` has a new signature.
+> Storefronts on classic Hydrogen (≤ 2026.4.x) should stay on v2: `npm install @nosto/shopify-hydrogen@2`.
+> See the [v3.0.0 release notes](https://github.com/Nosto/shopify-hydrogen/releases/tag/v3.0.0) for migration steps.
+
 ### Welcome to the Nosto React Component Library for Shopify Hydrogen! 
 
 Our component library is designed to help you easily integrate Nosto features into your Hydrogen-based storefront.
@@ -9,7 +14,7 @@ The library includes a comprehensive set of reusable components, each designed t
 This README is designed to provide you with an overview of our component library, including instructions on how to install and use our components, as well as information on the features and functionalities that our library supports. 
 
 
-> :warning: Please note that the information provided in this documentation is specific to Hydrogen 2, which is built on Remix. If your storefront is still running on Hydrogen 1, we recommend referring to our [documentation specifically tailored for Hydrogen 1](https://github.com/Nosto/shopify-hydrogen/tree/hydrogen-v1). This will ensure that you access the appropriate guidance and instructions for your specific version.
+> :warning: If your storefront is still running on Hydrogen 1, we recommend referring to our [documentation specifically tailored for Hydrogen 1](https://github.com/Nosto/shopify-hydrogen/tree/hydrogen-v1).
 
 ## nosto-react
 
@@ -57,24 +62,34 @@ yarn add @nosto/shopify-hydrogen
 
 ### Adding Nosto's fetcher function to the root loader
 
-- Import `getNostoData` from `@nosto/shopify-hydrogen` into your root.jsx file
-- Invoke the function, passing an object that contains both `context` and `cartId` as properties
-- Spread it to the returned defer object of the root loader by using the spread operator `...` and `await` keyword: `...(await getNostoData({ context, cartId }))`
+- Import `getNostoData` from `@nosto/shopify-hydrogen` into your root.tsx file
+- Invoke the function with your request-scoped `storefrontClient` (from `createStorefrontClient`)
+- Optionally pass `customerAccount` with your Customer Account API client (from `createCustomerAccountClient`) and the logged-in customer's access token, so Nosto can identify the customer
+- Spread the result into the object returned by the root loader by using the spread operator `...` and `await` keyword: `...(await getNostoData({ storefrontClient }))`
 
-By following these steps, you enable Nosto components to seamlessly receive relevant server-based data through the root loader.
+By following these steps, you enable Nosto components to seamlessly receive relevant server-based data through the root loader. The cart is read on the client from Hydrogen's cart store, so `getNostoData` no longer needs a cart ID.
 
-```js
-// app/root.jsx
+```tsx
+// app/root.tsx
 
-import { getNostoData } from '@nosto/shopify-hydrogen'
+import { getNostoData } from '@nosto/shopify-hydrogen';
 
-export async function loader({ request, context }) {
-  const cartId = getCartId(request);
+export async function loader({ context }: Route.LoaderArgs) {
+  // Set by your root middleware, see Hydrogen's migrate-to-hydrogen-2026-10 skill:
+  const storefrontClient = context.get(storefrontClientContext);
+  const requestContext = context.get(storefrontRequestContext);
   //...
 
-  return defer({
-    ...(await getNostoData({ context, cartId })),
-  });
+  return {
+    ...(await getNostoData({
+      storefrontClient,
+      // Optional, only for stores with customer accounts:
+      customerAccount: {
+        client: createCustomerAccountClient({ shopId: env.SHOP_ID, requestContext }),
+        accessToken: await customerSession.getAccessToken(sessionManager, requestContext),
+      },
+    })),
+  };
 }
 ```
 
@@ -87,9 +102,9 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 - The NostoProvider component is **required** and provides the Nosto functionality.
 - It must wrap all other Nosto components.
 - Pass your Nosto merchant ID via the `account` prop.
-- Pass Shopify Hydrogen nonce as a nonce prop. This is used to add your stores content security policy nonce to a Nosto script.
+- Pass your content security policy nonce as a nonce prop. This is used to add your store's nonce to a Nosto script. Hydrogen 2026-10 no longer ships `useNonce`, so pass the nonce your app generates for its CSP.
 - Imports the Nosto client script into the window environment. This is used to control all of Nosto functionality.
-- Remix separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
+- React Router separates the App and ErrorBoundary within the root. Make sure to add <NostoProvider/> to both for also enabling Nosto on 404 pages.
 - The `currentVariation` prop is automatically detected and managed within the NostoProvider component. However, if you prefer to set it manually, you can simply pass the prop directly yourself. 
 
 ```jsx
@@ -98,8 +113,7 @@ The library uses [@nosto/nosto-react](https://github.com/Nosto/nosto-react) unde
 import { NostoProvider } from "@nosto/shopify-hydrogen";
 
 export default function App() {
-  const nonce = useNonce();
-  const data = useLoaderData();
+  const nonce = useCspNonce(); // your app's CSP nonce
   
   return (
       ...
@@ -218,6 +232,8 @@ export function NostoSlot({nostoRecommendation}) {
 #### NostoSession
 
 In Hydrogen the NostoSession component is rendered automatically, no need for manually adding it to your app.
+
+NostoSession reads the cart from Hydrogen's cart store, so render `<NostoProvider/>` inside your `<CartProvider/>` (from `createCartComponents()` in `@shopify/hydrogen/react`). Outside a `CartProvider`, Nosto receives no cart data.
 
 #### NostoPlacement
 
@@ -384,18 +400,19 @@ function OtherPage() {
 - Order details are automatically passed with the help of the Nosto script that is loaded on the page already. Once the user is taken back to the website post-payment, this order information is logged internally. 
 
 ```jsx
-// app/components/Cart.jsx
+// app/components/Cart.tsx
 
 import { NostoCheckout, NostoPlacement } from "@nosto/shopify-hydrogen";
 
-export function Cart({ layout, onClose, cart }) {
+export function Cart({ layout, onClose }) {
 
-  const linesCount = Boolean(cart?.lines?.edges?.length || 0);
+  // useCart from your app's createCartComponents():
+  const linesCount = useCart((state) => state.data.lines.nodes.length > 0);
 
   return (
     <>
       <CartEmpty hidden={linesCount} onClose={onClose} layout={layout} />
-      <CartDetails cart={cart} layout={layout} />
+      <CartDetails layout={layout} />
 
       {/* Render specific Nosto slot when there are items in cart: */}
       {linesCount && (<NostoPlacement id="cartpage-nosto-1" />)}
